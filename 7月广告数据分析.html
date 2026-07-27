@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>亚马逊FBA SP广告数据分析报告</title>
+    <script src="https://registry.npmmirror.com/echarts/5.5.0/files/dist/echarts.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: #f5f7fa; color: #333; line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; color: #1a1a1a; margin-bottom: 10px; font-size: 28px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
+        
+        /* KPI卡片 */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .kpi-card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; }
+        .kpi-label { font-size: 13px; color: #666; margin-bottom: 8px; }
+        .kpi-value { font-size: 24px; font-weight: bold; color: #1a1a1a; }
+        .kpi-unit { font-size: 12px; color: #999; margin-left: 4px; }
+        
+        /* 图表容器 */
+        .chart-section { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .chart-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #1a1a1a; border-left: 4px solid #1890ff; padding-left: 10px; }
+        .chart-container { width: 100%; height: 400px; }
+        
+        /* 洞察区域 */
+        .insight-section { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .insight-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #1a1a1a; border-left: 4px solid #52c41a; padding-left: 10px; }
+        .insight-item { margin-bottom: 15px; padding: 12px; background: #f9f9f9; border-radius: 6px; }
+        .insight-number { font-weight: bold; color: #1890ff; }
+        .insight-reason { color: #666; margin-top: 5px; }
+        .insight-action { color: #52c41a; margin-top: 5px; font-weight: 500; }
+        
+        /* 表格 */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f5f7fa; font-weight: 600; color: #333; }
+        tr:hover { background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>亚马逊FBA SP广告数据分析报告</h1>
+        <p class="subtitle">数据周期：2026-07-01 至 2026-07-26 | 数据来源：明细汇总页</p>
+        
+        <!-- KPI卡片 -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">总曝光量</div>
+                <div class="kpi-value">9,563,191<span class="kpi-unit">次</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">总点击量</div>
+                <div class="kpi-value">99,894<span class="kpi-unit">次</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">总广告花费</div>
+                <div class="kpi-value">135,721.09<span class="kpi-unit">元</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">总广告销售额</div>
+                <div class="kpi-value">695,660.21<span class="kpi-unit">元</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">总广告出单数</div>
+                <div class="kpi-value">5,846<span class="kpi-unit">单</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">平均ACOS</div>
+                <div class="kpi-value">23.11<span class="kpi-unit">%</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">平均点击率</div>
+                <div class="kpi-value">1.09<span class="kpi-unit">%</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">平均转化率</div>
+                <div class="kpi-value">5.80<span class="kpi-unit">%</span></div>
+            </div>
+        </div>
+        
+        <!-- 图表1：按投放类型对比 -->
+        <div class="chart-section">
+            <div class="chart-title">投放类型对比分析</div>
+            <div id="chart-type" class="chart-container"></div>
+        </div>
+        
+        <!-- 图表2：按新老品对比 -->
+        <div class="chart-section">
+            <div class="chart-title">新老品表现对比</div>
+            <div id="chart-age" class="chart-container"></div>
+        </div>
+        
+        <!-- 图表3：市场分布 -->
+        <div class="chart-section">
+            <div class="chart-title">各市场广告销售额分布（Top 10）</div>
+            <div id="chart-market" class="chart-container"></div>
+        </div>
+        
+        <!-- 图表4：销售员排名 -->
+        <div class="chart-section">
+            <div class="chart-title">销售员广告销售额排名（Top 5）</div>
+            <div id="chart-salesperson" class="chart-container"></div>
+        </div>
+        
+        <!-- 图表5：日期趋势 -->
+        <div class="chart-section">
+            <div class="chart-title">近14天广告花费与销售额趋势</div>
+            <div id="chart-trend" class="chart-container"></div>
+        </div>
+        
+        <!-- 数据洞察 -->
+        <div class="insight-section">
+            <div class="insight-title">关键数据洞察</div>
+            
+            <div class="insight-item">
+                <div><span class="insight-number">自动投放贡献更大：</span>自动投放广告销售额40.3万元（占比58%），高于手动投放的29.3万元（占比42%），但ACOS略高（19.76% vs 19.17%）。</div>
+                <div class="insight-reason">原因：自动投放覆盖更广的流量池，曝光量558万次显著高于手动投放的398万次，带来更高转化基数。</div>
+                <div class="insight-action">建议：保持自动投放预算优势，同时优化手动投放关键词精准度以降低ACOS。</div>
+            </div>
+            
+            <div class="insight-item">
+                <div><span class="insight-number">老品仍是主力：</span>FBA老品广告销售额43.9万元（占比63%），新品25.7万元（占比37%），老品ACOS更低（18.77% vs 20.78%）。</div>
+                <div class="insight-reason">原因：老品已有稳定评价和排名，转化率更优；新品需要更多曝光积累数据。</div>
+                <div class="insight-action">建议：新品阶段可适当提高出价加速冷启动，老品维持稳健投放策略。</div>
+            </div>
+            
+            <div class="insight-item">
+                <div><span class="insight-number">GB和DE市场占主导：</span>英国市场销售额28.2万元（占比40.5%），德国23.9万元（占比34.4%），两者合计占75%。</div>
+                <div class="insight-reason">原因：欧洲核心市场需求稳定，产品匹配度高。</div>
+                <div class="insight-action">建议：巩固英德市场优势，同时关注FR（9.2万）、ES（6.9万）等潜力市场的增量空间。</div>
+            </div>
+            
+            <div class="insight-item">
+                <div><span class="insight-number">头部销售员表现突出：</span>薛海月销售额33.7万元（占比48.5%），陈颂21.8万元（占比31.3%），两人合计占80%。</div>
+                <div class="insight-reason">原因：头部销售员负责核心市场和品类，资源投入集中。</div>
+                <div class="insight-action">建议：总结头部销售员的最佳实践，向其他成员推广；关注林依婷（14万）的成长空间。</div>
+            </div>
+            
+            <div class="insight-item">
+                <div><span class="insight-number">月末数据异常下降：</span>7月26日广告花费仅30元、销售额60元，远低于日均水平（约4000元花费、2万元销售额）。</div>
+                <div class="insight-reason">原因：可能是数据尚未完全同步或周末效应导致。</div>
+                <div class="insight-action">建议：核实7月26日数据完整性，若为真实业务波动需排查广告活动暂停或预算耗尽情况。</div>
+            </div>
+        </div>
+        
+        <!-- 详细数据表 -->
+        <div class="chart-section">
+            <div class="chart-title">各市场详细数据（Top 10）</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>市场</th>
+                        <th>广告花费</th>
+                        <th>广告销售额</th>
+                        <th>出单数</th>
+                        <th>ACOS</th>
+                        <th>点击率</th>
+                        <th>转化率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GB</td>
+                        <td>57,368.09</td>
+                        <td>281,820.26</td>
+                        <td>2369</td>
+                        <td>20.36%</td>
+                        <td>1.01%</td>
+                        <td>6.43%</td>
+                    </tr>
+                    <tr>
+                        <td>DE</td>
+                        <td>50,224.68</td>
+                        <td>239,107.98</td>
+                        <td>2175</td>
+                        <td>21.01%</td>
+                        <td>1.15%</td>
+                        <td>6.13%</td>
+                    </tr>
+                    <tr>
+                        <td>FR</td>
+                        <td>15,803.04</td>
+                        <td>92,260.59</td>
+                        <td>713</td>
+                        <td>17.13%</td>
+                        <td>0.92%</td>
+                        <td>5.05%</td>
+                    </tr>
+                    <tr>
+                        <td>ES</td>
+                        <td>10,911.25</td>
+                        <td>69,478.80</td>
+                        <td>502</td>
+                        <td>15.70%</td>
+                        <td>1.06%</td>
+                        <td>4.32%</td>
+                    </tr>
+                    <tr>
+                        <td>IT</td>
+                        <td>1,212.87</td>
+                        <td>11,589.48</td>
+                        <td>77</td>
+                        <td>10.47%</td>
+                        <td>0.88%</td>
+                        <td>5.22%</td>
+                    </tr>
+                    <tr>
+                        <td>NL</td>
+                        <td>52.96</td>
+                        <td>1,219.05</td>
+                        <td>8</td>
+                        <td>4.34%</td>
+                        <td>0.95%</td>
+                        <td>3.62%</td>
+                    </tr>
+                    <tr>
+                        <td>US</td>
+                        <td>142.58</td>
+                        <td>184.05</td>
+                        <td>2</td>
+                        <td>77.47%</td>
+                        <td>1.09%</td>
+                        <td>1.83%</td>
+                    </tr>
+                    <tr>
+                        <td>BE</td>
+                        <td>0.64</td>
+                        <td>0.00</td>
+                        <td>0</td>
+                        <td>N/A</td>
+                        <td>0.85%</td>
+                        <td>0.00%</td>
+                    </tr>
+                    <tr>
+                        <td>PL</td>
+                        <td>2.67</td>
+                        <td>0.00</td>
+                        <td>0</td>
+                        <td>N/A</td>
+                        <td>0.84%</td>
+                        <td>0.00%</td>
+                    </tr>
+                    <tr>
+                        <td>SE</td>
+                        <td>2.31</td>
+                        <td>0.00</td>
+                        <td>0</td>
+                        <td>N/A</td>
+                        <td>0.90%</td>
+                        <td>0.00%</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 销售员详细数据 -->
+        <div class="chart-section">
+            <div class="chart-title">各销售员详细数据</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>销售员</th>
+                        <th>广告花费</th>
+                        <th>广告销售额</th>
+                        <th>出单数</th>
+                        <th>ACOS</th>
+                        <th>点击率</th>
+                        <th>转化率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>薛海月</td>
+                        <td>66,853.48</td>
+                        <td>337,342.29</td>
+                        <td>2604</td>
+                        <td>19.82%</td>
+                        <td>0.98%</td>
+                        <td>5.20%</td>
+                    </tr>
+                    <tr>
+                        <td>陈颂</td>
+                        <td>39,480.71</td>
+                        <td>217,583.06</td>
+                        <td>1820</td>
+                        <td>18.15%</td>
+                        <td>1.08%</td>
+                        <td>6.13%</td>
+                    </tr>
+                    <tr>
+                        <td>林依婷</td>
+                        <td>29,232.13</td>
+                        <td>140,236.24</td>
+                        <td>1417</td>
+                        <td>20.84%</td>
+                        <td>1.16%</td>
+                        <td>7.09%</td>
+                    </tr>
+                    <tr>
+                        <td>曾春燕</td>
+                        <td>154.77</td>
+                        <td>498.62</td>
+                        <td>5</td>
+                        <td>31.04%</td>
+                        <td>1.00%</td>
+                        <td>3.07%</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 是否人工广告详细数据 -->
+        <div class="chart-section">
+            <div class="chart-title">是否人工广告维度数据</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>是否人工广告</th>
+                        <th>广告花费</th>
+                        <th>广告销售额</th>
+                        <th>出单数</th>
+                        <th>ACOS</th>
+                        <th>点击率</th>
+                        <th>转化率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>策略广告</td>
+                        <td>114,904.00</td>
+                        <td>610,247.89</td>
+                        <td>5128</td>
+                        <td>18.83%</td>
+                        <td>1.09%</td>
+                        <td>5.80%</td>
+                    </tr>
+                    <tr>
+                        <td>人工广告</td>
+                        <td>20,817.09</td>
+                        <td>85,412.32</td>
+                        <td>718</td>
+                        <td>24.37%</td>
+                        <td>0.78%</td>
+                        <td>6.29%</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 是否新老品详细数据 -->
+        <div class="chart-section">
+            <div class="chart-title">是否新老品维度数据</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>是否新老品</th>
+                        <th>广告花费</th>
+                        <th>广告销售额</th>
+                        <th>出单数</th>
+                        <th>ACOS</th>
+                        <th>点击率</th>
+                        <th>转化率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FBA新品</td>
+                        <td>53,317.80</td>
+                        <td>256,617.15</td>
+                        <td>2219</td>
+                        <td>20.78%</td>
+                        <td>1.21%</td>
+                        <td>6.56%</td>
+                    </tr>
+                    <tr>
+                        <td>FBA老品</td>
+                        <td>82,403.29</td>
+                        <td>439,043.06</td>
+                        <td>3627</td>
+                        <td>18.77%</td>
+                        <td>0.98%</td>
+                        <td>5.49%</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 销售员×市场交叉分析 -->
+        <div class="chart-section">
+            <div class="chart-title">销售员×市场交叉分析</div>
+            <table>
+                <thead>
+                    <tr><th>销售员</th><th>市场</th><th>广告花费</th><th>广告销售额</th><th>出单数</th><th>ACOS</th></tr>
+                </thead>
+                <tbody><tr><td>曾春燕</td><td>NL</td><td>12.15</td><td>314.57</td><td>3</td><td>3.86%</td></tr>
+<tr><td>曾春燕</td><td>US</td><td>142.58</td><td>184.05</td><td>2</td><td>77.47%</td></tr>
+<tr><td>曾春燕</td><td>BE</td><td>0.0</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+<tr><td>曾春燕</td><td>PL</td><td>0.04</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+<tr><td>曾春燕</td><td>SE</td><td>0.0</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+<tr><td>林依婷</td><td>DE</td><td>13314.23</td><td>64669.55</td><td>676</td><td>20.59%</td></tr>
+<tr><td>林依婷</td><td>GB</td><td>11554.62</td><td>52586.62</td><td>513</td><td>21.97%</td></tr>
+<tr><td>林依婷</td><td>ES</td><td>2299.52</td><td>12010.12</td><td>113</td><td>19.15%</td></tr>
+<tr><td>林依婷</td><td>FR</td><td>2042.46</td><td>10489.30</td><td>112</td><td>19.47%</td></tr>
+<tr><td>林依婷</td><td>IT</td><td>13.56</td><td>260.26</td><td>2</td><td>5.21%</td></tr>
+<tr><td>林依婷</td><td>NL</td><td>5.59</td><td>220.39</td><td>1</td><td>2.54%</td></tr>
+<tr><td>林依婷</td><td>BE</td><td>0.32</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+<tr><td>林依婷</td><td>PL</td><td>0.61</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+<tr><td>林依婷</td><td>SE</td><td>1.22</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+<tr><td>薛海月</td><td>DE</td><td>25920.34</td><td>118623.28</td><td>994</td><td>21.85%</td></tr>
+<tr><td>薛海月</td><td>GB</td><td>22876.4</td><td>102069.73</td><td>832</td><td>22.41%</td></tr>
+<tr><td>薛海月</td><td>FR</td><td>10458.46</td><td>61550.08</td><td>430</td><td>16.99%</td></tr>
+<tr><td>薛海月</td><td>ES</td><td>6404.58</td><td>43345.9</td><td>271</td><td>14.78%</td></tr>
+<tr><td>薛海月</td><td>IT</td><td>1157.86</td><td>11069.21</td><td>73</td><td>10.46%</td></tr>
+<tr><td>薛海月</td><td>NL</td><td>32.41</td><td>684.09</td><td>4</td><td>4.74%</td></tr>
+<tr><td>薛海月</td><td>BE</td><td>0.32</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+<tr><td>薛海月</td><td>PL</td><td>2.02</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+<tr><td>薛海月</td><td>SE</td><td>1.09</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+<tr><td>陈颂</td><td>GB</td><td>22937.07</td><td>127163.91</td><td>1024</td><td>18.04%</td></tr>
+<tr><td>陈颂</td><td>DE</td><td>10990.11</td><td>55815.15</td><td>505</td><td>19.69%</td></tr>
+<tr><td>陈颂</td><td>FR</td><td>3302.12</td><td>20221.21</td><td>171</td><td>16.33%</td></tr>
+<tr><td>陈颂</td><td>ES</td><td>2207.15</td><td>14122.78</td><td>118</td><td>15.63%</td></tr>
+<tr><td>陈颂</td><td>IT</td><td>41.45</td><td>260.01</td><td>2</td><td>15.94%</td></tr>
+<tr><td>陈颂</td><td>NL</td><td>2.81</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+</tbody>
+            </table>
+        </div>
+        
+        <!-- 销售员×投放类型交叉分析 -->
+        <div class="chart-section">
+            <div class="chart-title">销售员×投放类型交叉分析</div>
+            <table>
+                <thead>
+                    <tr><th>销售员</th><th>投放类型</th><th>广告花费</th><th>广告销售额</th><th>出单数</th><th>ACOS</th></tr>
+                </thead>
+                <tbody><tr><td>曾春燕</td><td>自动投放</td><td>124.85</td><td>419.8</td><td>4</td><td>29.74%</td></tr>
+<tr><td>曾春燕</td><td>手动投放</td><td>29.92</td><td>78.82</td><td>1</td><td>37.96%</td></tr>
+<tr><td>林依婷</td><td>自动投放</td><td>15500.87</td><td>73308.18</td><td>689</td><td>21.14%</td></tr>
+<tr><td>林依婷</td><td>手动投放</td><td>13731.26</td><td>66928.06</td><td>728</td><td>20.52%</td></tr>
+<tr><td>薛海月</td><td>自动投放</td><td>37962.99</td><td>185685.3</td><td>1381</td><td>20.44%</td></tr>
+<tr><td>薛海月</td><td>手动投放</td><td>28890.49</td><td>151656.99</td><td>1223</td><td>19.05%</td></tr>
+<tr><td>陈颂</td><td>自动投放</td><td>26053.97</td><td>143725.66</td><td>1180</td><td>18.13%</td></tr>
+<tr><td>陈颂</td><td>手动投放</td><td>13426.74</td><td>73857.4</td><td>640</td><td>18.18%</td></tr>
+</tbody>
+            </table>
+        </div>
+        
+        <!-- 销售员×是否新老品交叉分析 -->
+        <div class="chart-section">
+            <div class="chart-title">销售员×是否新老品交叉分析</div>
+            <table>
+                <thead>
+                    <tr><th>销售员</th><th>是否新老品</th><th>广告花费</th><th>广告销售额</th><th>出单数</th><th>ACOS</th></tr>
+                </thead>
+                <tbody><tr><td>曾春燕</td><td>FBA老品</td><td>87.39</td><td>325.71</td><td>3</td><td>26.83%</td></tr>
+<tr><td>曾春燕</td><td>FBA新品</td><td>67.38</td><td>172.91</td><td>2</td><td>38.97%</td></tr>
+<tr><td>林依婷</td><td>FBA老品</td><td>15204.85</td><td>71766.81</td><td>724</td><td>21.19%</td></tr>
+<tr><td>林依婷</td><td>FBA新品</td><td>14027.28</td><td>68469.43</td><td>693</td><td>20.49%</td></tr>
+<tr><td>薛海月</td><td>FBA老品</td><td>43027.86</td><td>236392.11</td><td>1803</td><td>18.20%</td></tr>
+<tr><td>薛海月</td><td>FBA新品</td><td>23825.62</td><td>100950.18</td><td>801</td><td>23.60%</td></tr>
+<tr><td>陈颂</td><td>FBA老品</td><td>24083.19</td><td>130558.43</td><td>1097</td><td>18.45%</td></tr>
+<tr><td>陈颂</td><td>FBA新品</td><td>15397.52</td><td>87024.63</td><td>723</td><td>17.69%</td></tr>
+</tbody>
+            </table>
+        </div>
+        
+        <!-- 销售员×是否人工广告交叉分析 -->
+        <div class="chart-section">
+            <div class="chart-title">销售员×是否人工广告交叉分析</div>
+            <table>
+                <thead>
+                    <tr><th>销售员</th><th>是否人工广告</th><th>广告花费</th><th>广告销售额</th><th>出单数</th><th>ACOS</th></tr>
+                </thead>
+                <tbody><tr><td>曾春燕</td><td>策略广告</td><td>132.34</td><td>498.62</td><td>5</td><td>26.54%</td></tr>
+<tr><td>曾春燕</td><td>人工广告</td><td>22.43</td><td>0.0</td><td>0</td><td>N/A</td></tr>
+<tr><td>林依婷</td><td>策略广告</td><td>23383.45</td><td>118025.69</td><td>1182</td><td>19.81%</td></tr>
+<tr><td>林依婷</td><td>人工广告</td><td>5848.68</td><td>22210.55</td><td>235</td><td>26.33%</td></tr>
+<tr><td>薛海月</td><td>策略广告</td><td>54520.99</td><td>285179.36</td><td>2220</td><td>19.12%</td></tr>
+<tr><td>薛海月</td><td>人工广告</td><td>12332.49</td><td>52162.93</td><td>384</td><td>23.64%</td></tr>
+<tr><td>陈颂</td><td>策略广告</td><td>36867.22</td><td>206544.22</td><td>1721</td><td>17.85%</td></tr>
+<tr><td>陈颂</td><td>人工广告</td><td>2613.49</td><td>11038.84</td><td>99</td><td>23.68%</td></tr>
+</tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        // 图表1：按投放类型对比
+        var chartType = echarts.init(document.getElementById('chart-type'));
+        chartType.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { data: ['广告花费', '广告销售额', 'ACOS'], top: 10 },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'category', data: ["手动投放", "自动投放"] },
+            yAxis: [
+                { type: 'value', name: '金额（元）', position: 'left' },
+                { type: 'value', name: 'ACOS（%）', position: 'right' }
+            ],
+            series: [
+                { name: '广告花费', type: 'bar', data: [56078.41, 79642.68], itemStyle: { color: '#5470c6' } },
+                { name: '广告销售额', type: 'bar', data: [292521.27, 403138.94], itemStyle: { color: '#91cc75' } },
+                { name: 'ACOS', type: 'line', yAxisIndex: 1, data: [19.17, 19.76], itemStyle: { color: '#fac858' } }
+            ]
+        });
+        
+        // 图表2：按新老品对比
+        var chartAge = echarts.init(document.getElementById('chart-age'));
+        chartAge.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { data: ['广告花费', '广告销售额', 'ACOS'], top: 10 },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'category', data: ["FBA新品", "FBA老品"] },
+            yAxis: [
+                { type: 'value', name: '金额（元）', position: 'left' },
+                { type: 'value', name: 'ACOS（%）', position: 'right' }
+            ],
+            series: [
+                { name: '广告花费', type: 'bar', data: [53317.8, 82403.29], itemStyle: { color: '#5470c6' } },
+                { name: '广告销售额', type: 'bar', data: [256617.15, 439043.06], itemStyle: { color: '#91cc75' } },
+                { name: 'ACOS', type: 'line', yAxisIndex: 1, data: [20.78, 18.77], itemStyle: { color: '#fac858' } }
+            ]
+        });
+        
+        // 图表3：市场分布
+        var chartMarket = echarts.init(document.getElementById('chart-market'));
+        chartMarket.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'value', name: '销售额（元）' },
+            yAxis: { type: 'category', data: ["GB", "DE", "FR", "ES", "IT", "NL", "US", "BE", "PL", "SE"] },
+            series: [
+                { name: '广告销售额', type: 'bar', data: [281820.26, 239107.98, 92260.59, 69478.8, 11589.48, 1219.05, 184.05, 0.0, 0.0, 0.0], itemStyle: { color: '#5470c6' }, label: { show: true, position: 'right' } }
+            ]
+        });
+        
+        // 图表4：销售员排名
+        var chartSalesperson = echarts.init(document.getElementById('chart-salesperson'));
+        chartSalesperson.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { data: ['销售额', 'ACOS'], top: 10 },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'value', name: '销售额（元）' },
+            yAxis: { type: 'category', data: ["薛海月", "陈颂", "林依婷", "曾春燕"] },
+            series: [
+                { name: '销售额', type: 'bar', data: [337342.29, 217583.06, 140236.24, 498.62], itemStyle: { color: '#91cc75' }, label: { show: true, position: 'right' } },
+                { name: 'ACOS', type: 'line', data: [19.82, 18.15, 20.84, 31.04], itemStyle: { color: '#fac858' }, label: { show: true } }
+            ]
+        });
+        
+        // 图表5：日期趋势
+        var chartTrend = echarts.init(document.getElementById('chart-trend'));
+        chartTrend.setOption({
+            tooltip: { trigger: 'axis' },
+            legend: { data: ['广告花费', '广告销售额'], top: 10 },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'category', boundaryGap: false, data: ["2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26"] },
+            yAxis: { type: 'value', name: '金额（元）' },
+            series: [
+                { name: '广告花费', type: 'line', smooth: true, data: [5428.36, 5411.32, 5152.17, 4819.86, 4352.43, 4867.31, 5400.18, 4997.97, 4509.16, 4444.01, 3945.29, 3627.1, 3373.3, 30.37], itemStyle: { color: '#5470c6' }, areaStyle: { opacity: 0.3 } },
+                { name: '广告销售额', type: 'line', smooth: true, data: [27632.24, 26716.24, 24554.39, 26019.36, 23778.79, 23933.29, 24009.63, 28207.44, 21766.84, 24567.72, 20590.66, 17679.28, 12666.91, 59.85], itemStyle: { color: '#91cc75' }, areaStyle: { opacity: 0.3 } }
+            ]
+        });
+        
+        // 响应式
+        window.addEventListener('resize', function() {
+            chartType.resize();
+            chartAge.resize();
+            chartMarket.resize();
+            chartSalesperson.resize();
+            chartTrend.resize();
+        });
+    </script>
+</body>
+</html>
