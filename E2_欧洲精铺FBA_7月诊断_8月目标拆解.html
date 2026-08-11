@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E2欧洲精铺FBA｜7月出单结构诊断与8月目标拆解</title>
+<style>
+:root{
+  --bg:#f4f7fb; --card:#ffffff; --ink:#172033; --muted:#657086;
+  --line:#dfe6ef; --blue:#315b96; --blue2:#e9f0fb; --green:#237a57;
+  --green2:#e8f5ee; --orange:#b76613; --orange2:#fff2df; --red:#b94444;
+  --red2:#fdecec; --purple:#6f55a5; --shadow:0 7px 24px rgba(25,42,70,.07);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",Arial,sans-serif;line-height:1.58}
+.wrap{max-width:1500px;margin:0 auto;padding:28px}
+.hero{background:linear-gradient(135deg,#1f3559,#315b96 55%,#3a6f9f);color:#fff;border-radius:20px;padding:30px 34px;box-shadow:var(--shadow)}
+.hero h1{margin:0 0 8px;font-size:30px;letter-spacing:.2px}
+.hero p{margin:4px 0;color:#e9f0fa}
+.tag{display:inline-block;margin-top:12px;padding:5px 10px;border:1px solid rgba(255,255,255,.28);border-radius:999px;font-size:13px;background:rgba(255,255,255,.08)}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}
+.kpi .label{font-size:13px;color:var(--muted);margin-bottom:8px}
+.kpi .value{font-size:29px;font-weight:800;letter-spacing:-.5px}
+.kpi .sub{font-size:13px;color:var(--muted);margin-top:7px}
+.good{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--orange)}.blue{color:var(--blue)}
+section{margin-top:22px}
+h2{font-size:22px;margin:0 0 13px}
+h3{font-size:17px;margin:0 0 10px}
+.note{padding:13px 15px;border-radius:12px;background:#f7f9fc;border:1px solid var(--line);color:#4b576b;font-size:14px}
+.alert{background:var(--red2);border-left:5px solid var(--red)}
+.success{background:var(--green2);border-left:5px solid var(--green)}
+.warnbox{background:var(--orange2);border-left:5px solid var(--orange)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:middle}
+th{background:#f3f6fa;color:#415069;font-weight:700;position:sticky;top:0}
+th:first-child,td:first-child{text-align:left}
+tr:last-child td{border-bottom:none}
+.badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:12px;font-weight:700}
+.b-green{background:var(--green2);color:var(--green)}.b-red{background:var(--red2);color:var(--red)}
+.b-orange{background:var(--orange2);color:var(--orange)}.b-blue{background:var(--blue2);color:var(--blue)}
+.bar{height:9px;background:#edf1f6;border-radius:999px;overflow:hidden;margin-top:7px}
+.bar>span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#315b96,#5f83b8)}
+.rowflex{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.bigcall{font-size:36px;font-weight:900;letter-spacing:-1px}
+.arrow{font-size:24px;color:#8090a8;padding:0 8px}
+.funnel{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:12px 0}
+.funnel .box{min-width:205px;padding:18px;border-radius:14px;text-align:center;border:1px solid var(--line);background:#fbfcfe}
+.funnel .box strong{display:block;font-size:28px;margin:2px 0}
+.mini{font-size:12px;color:var(--muted)}
+ul{margin:8px 0 0 20px;padding:0}li{margin:6px 0}
+.callout{border-radius:14px;padding:16px 18px;background:#eef4fb;border:1px solid #d8e4f3}
+.priority{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:start;margin:9px 0}
+.rank{width:58px;text-align:center;border-radius:10px;padding:7px 4px;background:#edf2f8;color:#315b96;font-weight:800}
+.small{font-size:13px;color:var(--muted)}
+.metricline{display:grid;grid-template-columns:180px 1fr 72px;gap:12px;align-items:center;margin:10px 0}
+.metricline .pct{text-align:right;font-weight:800}
+.footer{margin:26px 0 10px;color:#738096;font-size:12px;text-align:center}
+@media(max-width:1000px){.g4,.g3,.g2{grid-template-columns:1fr}.wrap{padding:14px}.hero{padding:22px}.hero h1{font-size:24px}.metricline{grid-template-columns:130px 1fr 55px}table{font-size:12px}th,td{padding:8px 6px}}
+@media print{body{background:#fff}.wrap{max-width:none;padding:8mm}.card,.hero{box-shadow:none}section{break-inside:avoid}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1>E2 欧洲精铺 FBA｜7月出单结构诊断 & 8月目标拆解</h1>
+    <p>核心目标：把“销量段管理”从结果统计，改成<strong>保级 + 晋级 + 淘汰</strong>的产品梯队管理。</p>
+    <p>8月目标：<strong>15单以上 ≥ 420个</strong>；<strong>30单以上 ≥ 125个</strong>。意大利不作为重点培养市场。</p>
+    <span class="tag">管理视角 · 销售 / 市场 / 产品三级拆解</span>
+  </header>
+
+  <section class="grid g4">
+    <div class="card kpi">
+      <div class="label">7月 15+ ASIN</div><div class="value bad">323</div>
+      <div class="sub">6月 399 → 7月减少 <b>-76 / -19.0%</b></div>
+    </div>
+    <div class="card kpi">
+      <div class="label">7月 30+ ASIN</div><div class="value bad">93</div>
+      <div class="sub">6月 140 → 7月减少 <b>-47 / -33.6%</b></div>
+    </div>
+    <div class="card kpi">
+      <div class="label">8月 15+ 目标缺口</div><div class="value blue">+97</div>
+      <div class="sub">323 → 420，需净增 <b>30.0%</b></div>
+    </div>
+    <div class="card kpi">
+      <div class="label">8月 30+ 目标缺口</div><div class="value blue">+32</div>
+      <div class="sub">93 → 125，需净增 <b>34.4%</b></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>一、管理层先看结论</h2>
+    <div class="grid g2">
+      <div>
+        <div class="priority"><div class="rank">01</div><div><b>问题不是SKU数量不够，而是高销量产品大量“掉档”。</b><div class="small">6→7月总出单ASIN规模变化有限，但15+减少76个、30+减少47个；30-49档直接从91个降到54个，是最明显的断层。</div></div></div>
+        <div class="priority"><div class="rank">02</div><div><b>15+目标比30+目标更难。</b><div class="small">420个15+不仅要追回6月丢失的76个，还要比6月历史高点399再多21个；125个30+则主要是追回7月流失的32个，仍低于6月的140个。</div></div></div>
+        <div class="priority"><div class="rank">03</div><div><b>真正的增长杠杆集中在10-29单，而不是平均优化全部产品。</b><div class="small">7月有281个10-14单、123个15-19单、107个20-29单，这440个ASIN是8月最重要的“晋级池”。</div></div></div>
+      </div>
+      <div>
+        <div class="priority"><div class="rank">04</div><div><b>库存激活仍有明显浪费。</b><div class="small">去掉挂掉账号口径后，欧洲五国库存ASIN 4594个，7月有出单3121个，出单覆盖率仅68%，仍有1473个库存ASIN当月0单。</div></div></div>
+        <div class="priority"><div class="rank">05</div><div><b>UK+DE必须承担绝大部分增量。</b><div class="small">两国目前占重点四国15+的81%、30+的78%，同时UK/DE零出单库存缺口合计1009个，是最有规模也最需要修复的市场。</div></div></div>
+        <div class="priority"><div class="rank">06</div><div><b>销售端首要管理对象是薛海月，其次陈颂。</b><div class="small">薛海月7月15+较6月少60个、30+少31个，且库存出单覆盖仅64%，零出单缺口820个；陈颂30+下降42%，需重点修复中高档产品。</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid g3">
+    <div class="card">
+      <h3>高销量产品的价值密度</h3>
+      <div class="metricline"><span>15+ ASIN占比</span><div class="bar"><span style="width:8.4%"></span></div><div class="pct">8.4%</div></div>
+      <div class="metricline"><span>15+ 销售额占比</span><div class="bar"><span style="width:44.9%"></span></div><div class="pct">44.9%</div></div>
+      <div class="metricline"><span>15+ 利润额占比</span><div class="bar"><span style="width:46.0%"></span></div><div class="pct">46.0%</div></div>
+      <div class="note success">少量15+产品贡献接近一半销售与利润，因此管理重点必须从“铺多少”转到“能留下多少15+/30+”。</div>
+    </div>
+    <div class="card">
+      <h3>6月 → 7月恶化位置</h3>
+      <table>
+        <tr><th>指标</th><th>6月</th><th>7月</th><th>变化</th></tr>
+        <tr><td>总销售额</td><td>252.6万</td><td>220.8万</td><td class="bad">-12.6%</td></tr>
+        <tr><td>总利润额</td><td>80.6万</td><td>68.3万</td><td class="bad">-15.3%</td></tr>
+        <tr><td>15+销售额</td><td>131.2万</td><td>99.1万</td><td class="bad">-24.5%</td></tr>
+        <tr><td>30+销售额</td><td>80.7万</td><td>55.6万</td><td class="bad">-31.1%</td></tr>
+        <tr><td>30-49 ASIN</td><td>91</td><td>54</td><td class="bad">-37</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>目标难度判断</h3>
+      <div class="funnel">
+        <div class="box"><span class="mini">15+：7月</span><strong>323</strong><span class="bad">→ 420（+97）</span></div>
+        <div class="box"><span class="mini">30+：7月</span><strong>93</strong><span class="blue">→ 125（+32）</span></div>
+      </div>
+      <div class="note warnbox"><b>建议新增一个配套过程指标：</b>10+ ASIN ≥ 700。否则15+的上游池太薄，420容易靠短期冲量而非稳定梯队实现。</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>二、8月总目标如何从“结果”拆成“动作”</h2>
+    <div class="funnel">
+      <div class="box"><span class="mini">现有15+</span><strong>323</strong><span>保级率目标 ≥95%</span></div>
+      <div class="arrow">+</div>
+      <div class="box"><span class="mini">10-14晋级池</span><strong>281</strong><span>至少约113个升到15+</span></div>
+      <div class="arrow">=</div>
+      <div class="box" style="background:#eef7f2"><span class="mini">8月15+目标</span><strong class="good">420</strong><span>净增97</span></div>
+    </div>
+    <div class="funnel">
+      <div class="box"><span class="mini">现有30+</span><strong>93</strong><span>保级率目标 ≥90%</span></div>
+      <div class="arrow">+</div>
+      <div class="box"><span class="mini">20-29晋级池</span><strong>107</strong><span>至少约41个升到30+</span></div>
+      <div class="arrow">=</div>
+      <div class="box" style="background:#eef7f2"><span class="mini">8月30+目标</span><strong class="good">125</strong><span>净增32</span></div>
+    </div>
+    <div class="note">
+      <b>关键逻辑：</b>不能只盯“月底净增32/97”。若已有30+继续掉档，新增32个仍然无法达标。因此必须同时考核
+      <b>保级率</b>和<b>晋级率</b>。推荐把“30+保级 ≥90%、20-29→30+ ≥38%、15+保级 ≥95%、10-14→15+ ≥40%”作为核心过程红线。
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>三、销售目标拆解</h2>
+    <p class="small">建议按“机会池50% + 当前产能30% + 销售额贡献20%”分配增量，避免平均摊派。曹菁燕当前规模极小，不承担本轮核心硬增量；黄红丽在另一张库存表中仅有出单覆盖数据，缺少15+/30+分层，先作为激活效率标杆，待补齐分层后再纳入硬目标。</p>
+    <table>
+      <thead><tr><th>销售</th><th>7月15+</th><th>8月15+目标</th><th>净增</th><th>7月30+</th><th>8月30+目标</th><th>净增</th><th>管理重点</th></tr></thead>
+      <tbody>
+        <tr><td><b>薛海月</b></td><td>189</td><td><b>241</b></td><td class="blue">+52</td><td>61</td><td><b>80</b></td><td class="blue">+19</td><td style="text-align:left">最大恢复责任；先救30+掉档，再集中推进20-29；零出单库存缺口820个需专项压降。</td></tr>
+        <tr><td><b>陈颂</b></td><td>69</td><td><b>93</b></td><td class="blue">+24</td><td>19</td><td><b>26</b></td><td class="blue">+7</td><td style="text-align:left">30+由33降至19，重点查高阶产品掉档原因；20-29中至少形成9个强冲刺款。</td></tr>
+        <tr><td><b>林依婷</b></td><td>65</td><td><b>86</b></td><td class="blue">+21</td><td>13</td><td><b>19</b></td><td class="blue">+6</td><td style="text-align:left">7月15+逆势增加，复制有效动作；重点把20-29中的高潜款推过30。</td></tr>
+        <tr><td><b>合计</b></td><td>323</td><td><b>420</b></td><td class="blue"><b>+97</b></td><td>93</td><td><b>125</b></td><td class="blue"><b>+32</b></td><td style="text-align:left">目标责任必须落实到具体ASIN清单，不接受只报汇总数。</td></tr>
+      </tbody>
+    </table>
+    <div class="grid g3" style="margin-top:15px">
+      <div class="callout"><b>薛海月</b><br><span class="small">建议最低动作量：20-29→30约25个；10-14→15约60个左右，并同步守住已有高档产品。</span></div>
+      <div class="callout"><b>陈颂</b><br><span class="small">建议最低动作量：20-29→30约9个；10-14→15约28个；重点做高档掉档复盘。</span></div>
+      <div class="callout"><b>林依婷</b><br><span class="small">建议最低动作量：20-29→30约7个；10-14→15约24个；发挥当前较好的增长韧性。</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>四、市场目标拆解</h2>
+    <p class="small">意大利无税号，不追加培养目标，原则上“维持自然单、不加大广告/备货投入”。增量集中UK、DE，FR次之，ES小步培养。</p>
+    <table>
+      <thead><tr><th>市场</th><th>7月15+</th><th>8月15+目标</th><th>增量</th><th>7月30+</th><th>8月30+目标</th><th>增量</th><th>7月库存出单率</th><th>策略</th></tr></thead>
+      <tbody>
+        <tr><td><b>UK</b></td><td>133</td><td><b>172</b></td><td class="blue">+39</td><td>35</td><td><b>49</b></td><td class="blue">+14</td><td>71%</td><td style="text-align:left">30+从60掉到35，首要做“老爆款恢复”；同时UK零出单缺口500个。</td></tr>
+        <tr><td><b>DE</b></td><td>123</td><td><b>160</b></td><td class="blue">+37</td><td>38</td><td><b>50</b></td><td class="blue">+12</td><td>69%</td><td style="text-align:left">10+仅小幅下降但15+/30+明显掉档，说明中段向上转化/高段保级是核心问题；优先级最高。</td></tr>
+        <tr><td><b>FR</b></td><td>41</td><td><b>56</b></td><td class="blue">+15</td><td>14</td><td><b>18</b></td><td class="blue">+4</td><td>65%</td><td style="text-align:left">相对稳定，适合做第二增长曲线；精选有利润、有库存、近7天上升的产品加速。</td></tr>
+        <tr><td><b>ES</b></td><td>18</td><td><b>24</b></td><td class="blue">+6</td><td>6</td><td><b>8</b></td><td class="blue">+2</td><td>63%</td><td style="text-align:left">体量小，避免重投；做高确定性产品复制，不追求广铺。</td></tr>
+        <tr><td><b>IT</b></td><td>8</td><td><b>8</b></td><td>0</td><td>0</td><td><b>0</b></td><td>0</td><td class="bad">39%</td><td style="text-align:left">不重点培养；自然出单、库存安全、避免新增资源占用。</td></tr>
+        <tr><td><b>合计</b></td><td>323</td><td><b>420</b></td><td class="blue"><b>+97</b></td><td>93</td><td><b>125</b></td><td class="blue"><b>+32</b></td><td>—</td><td style="text-align:left">UK+DE承担约78%的15+增量、约81%的30+增量。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>五、产品层：建立“六级作战池”，不要平均优化</h2>
+    <table>
+      <thead><tr><th>销量层级</th><th>7月ASIN数</th><th>8月角色</th><th>核心目标</th><th>具体动作</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge b-green">30+</span></td><td>93</td><td>保级池</td><td><b>保级 ≥90%</b></td><td style="text-align:left">库存、价格、核心词、广告预算优先保护；任何一个产品预测月底跌破30，24小时内进入救火清单。</td></tr>
+        <tr><td><span class="badge b-orange">20-29</span></td><td>107</td><td><b>一级冲刺池</b></td><td><b>至少41个升30+</b></td><td style="text-align:left">全部进入日报；优先处理距离30最近、近7天增长、利润为正、库存充足的SKU。资源优先级最高。</td></tr>
+        <tr><td><span class="badge b-orange">15-19</span></td><td>123</td><td>二级冲刺池</td><td>先保15+，优质款向20-29/30推进</td><td style="text-align:left">避免掉回10-14；从中筛出高转化/高毛利款做第二批冲30产品，补充20-29池。</td></tr>
+        <tr><td><span class="badge b-blue">10-14</span></td><td>281</td><td><b>15+增长池</b></td><td><b>约40%晋级15+</b></td><td style="text-align:left">至少建立140个重点候选清单，目标约113个最终过15；优先解决曝光不足、转化不足、价格/优惠和广告断流。</td></tr>
+        <tr><td><span class="badge b-blue">5-9</span></td><td>779</td><td>后备池</td><td>精选，不广撒预算</td><td style="text-align:left">只扶近7天趋势明显、利润健康、库存合适的SKU，目标是补充10+池，为9月准备。</td></tr>
+        <tr><td><span class="badge b-red">1-4</span></td><td>2473</td><td>筛选/淘汰池</td><td>减少无效运营占用</td><td style="text-align:left">不做全量优化。按库存年龄、毛利、季节性、转化潜力分为“低成本激活 / 清货 / 暂停补货”。</td></tr>
+      </tbody>
+    </table>
+    <div class="note success" style="margin-top:14px">
+      <b>资源原则：</b>新增运营精力/测试预算建议至少60%投向15-29单，约25%投向10-14单，10%用于30+防守，其余低档只做高潜验证。
+      精铺的核心不是“每个SKU都优化”，而是快速把有限资源推向最接近目标线的SKU。
+    </div>
+  </section>
+
+  <section class="grid g2">
+    <div class="card">
+      <h2>六、销售端问题诊断</h2>
+      <table>
+        <tr><th>销售</th><th>6月→7月15+</th><th>6月→7月30+</th><th>库存出单率</th></tr>
+        <tr><td><b>薛海月</b></td><td class="bad">249 → 189（-60）</td><td class="bad">92 → 61（-31）</td><td class="bad">64%</td></tr>
+        <tr><td><b>陈颂</b></td><td class="bad">88 → 69（-19）</td><td class="bad">33 → 19（-14）</td><td>68%</td></tr>
+        <tr><td><b>林依婷</b></td><td class="good">62 → 65（+3）</td><td class="bad">15 → 13（-2）</td><td class="good">72%</td></tr>
+        <tr><td><b>黄红丽*</b></td><td>缺分层数据</td><td>缺分层数据</td><td class="good">96%</td></tr>
+      </table>
+      <div class="note" style="margin-top:12px">*黄红丽在“库存ASIN/出单覆盖”表中表现最好，可要求其沉淀新品激活、低档转出单的方法，形成组内SOP；但在15+/30+目标分配前需补齐相同口径的销量段数据。</div>
+    </div>
+    <div class="card">
+      <h2>七、市场端问题诊断</h2>
+      <table>
+        <tr><th>市场</th><th>6月→7月15+</th><th>6月→7月30+</th><th>零出单库存缺口</th></tr>
+        <tr><td><b>UK</b></td><td class="bad">169 → 133（-36）</td><td class="bad">60 → 35（-25）</td><td>500</td></tr>
+        <tr><td><b>DE</b></td><td class="bad">157 → 123（-34）</td><td class="bad">55 → 38（-17）</td><td>509</td></tr>
+        <tr><td><b>FR</b></td><td class="bad">46 → 41（-5）</td><td>16 → 14（-2）</td><td>306</td></tr>
+        <tr><td><b>ES</b></td><td>18 → 18（持平）</td><td>6 → 6（持平）</td><td>138</td></tr>
+        <tr><td><b>IT</b></td><td>9 → 8</td><td class="bad">3 → 0</td><td>20</td></tr>
+      </table>
+      <div class="note warnbox" style="margin-top:12px"><b>DE值得特别关注：</b>10+ ASIN从235降到230，基本稳定，但15+从157降到123、30+从55降到38，说明不是“没产品”，而是中高档产品向下掉档，最适合做针对性恢复。</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>八、可落地执行机制：从“月末看结果”改成“每天看晋级”</h2>
+    <div class="grid g3">
+      <div class="callout">
+        <h3>1）建立四张SKU清单</h3>
+        <ul>
+          <li><b>30+保级清单：</b>93个全部逐SKU监控。</li>
+          <li><b>20-29冲30清单：</b>107个全部入池，标记A/B优先级。</li>
+          <li><b>10-14冲15清单：</b>至少140个重点候选。</li>
+          <li><b>6月高档→7月掉档清单：</b>按SKU查原因，不只看净减少数量。</li>
+        </ul>
+      </div>
+      <div class="callout">
+        <h3>2）每个SKU必须有“剩余日单量”</h3>
+        <p class="small">公式：<b>（目标单量 - 当月已出单）÷ 当月剩余天数</b>。</p>
+        <ul>
+          <li>30单目标：每天判断是否在30单节奏线。</li>
+          <li>15单目标：低于节奏线连续2天即触发处理。</li>
+          <li>不要等月底才发现“差3单、差5单”。</li>
+        </ul>
+      </div>
+      <div class="callout">
+        <h3>3）掉档产品24小时归因</h3>
+        <ul>
+          <li>库存/断货与配送时效</li>
+          <li>价格、Coupon、促销变化</li>
+          <li>自然流量/关键词排名</li>
+          <li>广告预算断流、CPC/ACOS异常</li>
+          <li>转化率、评价、竞品价格变化</li>
+          <li>季节性 / Listing异常</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>九、建议的管理看板KPI</h2>
+    <table>
+      <thead><tr><th>KPI</th><th>8月建议值</th><th>频率</th><th>触发动作</th></tr></thead>
+      <tbody>
+        <tr><td><b>15+ ASIN</b></td><td><b>≥420</b></td><td>日 / 周</td><td style="text-align:left">低于周进度线：优先加速10-14晋级，不允许靠扩大1-4产品数量解决。</td></tr>
+        <tr><td><b>30+ ASIN</b></td><td><b>≥125</b></td><td>日 / 周</td><td style="text-align:left">先守93个存量，再冲107个20-29产品。</td></tr>
+        <tr><td>30+保级率</td><td><b>≥90%</b></td><td>周</td><td style="text-align:left">跌破即复盘每个掉档SKU，并指定恢复日期。</td></tr>
+        <tr><td>20-29→30+晋级率</td><td><b>≥38%</b></td><td>周</td><td style="text-align:left">看“完成数/机会池”，销售之间可直接横向比较。</td></tr>
+        <tr><td>15+保级率</td><td><b>≥95%</b></td><td>周</td><td style="text-align:left">掉到15以下的SKU必须有原因码。</td></tr>
+        <tr><td>10-14→15+晋级率</td><td><b>≈40%</b></td><td>周</td><td style="text-align:left">这是420目标最关键的新增来源。</td></tr>
+        <tr><td>10+ ASIN（配套）</td><td><b>建议≥700</b></td><td>周</td><td style="text-align:left">作为15+的上游蓄水池，避免9月再次断层。</td></tr>
+        <tr><td>五国库存出单覆盖率</td><td><b>建议≥75%</b></td><td>周</td><td style="text-align:left">从68%向上提升；重点压降薛海月、UK、DE的零出单库存。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>十、建议的周管理节奏</h2>
+    <div class="grid g4">
+      <div class="callout"><b>周一｜定池</b><div class="small">锁定本周20-29冲30、10-14冲15、30+风险SKU；每人明确数量与ASIN。</div></div>
+      <div class="callout"><b>周二-三｜执行</b><div class="small">价格/广告/优惠/Listing/库存逐项动作，优先处理距离目标最近的产品。</div></div>
+      <div class="callout"><b>周四｜纠偏</b><div class="small">按“距离目标差几单”排序，资源从低潜SKU转向高确定性SKU。</div></div>
+      <div class="callout"><b>周日｜结算</b><div class="small">看保级、晋级、掉档三类结果；次周目标只按ASIN清单交付，不只报销售额。</div></div>
+    </div>
+    <div class="note alert" style="margin-top:14px">
+      <b>管理红线：</b>如果一个30+产品掉到30以下、或一个15+产品掉到15以下，必须能回答“为什么掉、谁负责、何时恢复、还值不值得救”。
+      精铺团队真正应该管理的是产品梯队的上升率和掉档率，而不是单纯Listing数量。
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>十一、数据口径提醒</h2>
+    <div class="note">
+      图片中存在两套口径：①销量段看板7月合计约3856个ASIN，并对应15+=323、30+=93；②“欧洲五国、去掉挂掉账号”库存表为4594个库存ASIN、3121个7月出单ASIN、覆盖率68%。
+      <b>本报告用第一套口径拆420/125目标，用第二套口径分析零出单库存和激活效率，两者不直接相减。</b>
+      建议后续把两套口径统一到同一“有效账号 + FBA有库存 + ASIN去重”标准，否则销售之间容易因口径不同产生目标争议。
+    </div>
+  </section>
+
+  <div class="footer">E2 欧洲精铺FBA管理报告｜基于用户提供的2026年6-7月销量段、销售、市场与库存出单覆盖数据整理</div>
+</div>
+</body>
+</html>
