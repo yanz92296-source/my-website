@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>2025年圣诞数据复盘</title>
+<style>
+:root {
+  --bg:#f5f7fb; --card:#fff; --text:#172033; --muted:#667085; --line:#e4e7ec;
+  --blue:#2563eb; --purple:#7c3aed; --teal:#0f9f8f; --orange:#f59e0b; --green:#16a34a; --red:#dc2626;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.55}
+.container{max-width:1480px;margin:0 auto;padding:28px 28px 60px}
+.hero{background:linear-gradient(135deg,#12213f,#1d4ed8 60%,#0f766e);color:#fff;border-radius:22px;padding:32px 36px;box-shadow:0 16px 40px rgba(20,38,75,.18)}
+.hero h1{margin:0 0 8px;font-size:34px;letter-spacing:.5px}
+.hero .sub{opacity:.86;font-size:15px}
+.hero .scope{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.pill{padding:7px 12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.10);border-radius:999px;font-size:13px}
+.nav{position:sticky;top:0;z-index:10;margin:18px 0;background:rgba(245,247,251,.92);backdrop-filter:blur(8px);padding:10px 0;display:flex;gap:8px;overflow:auto}
+.nav a{white-space:nowrap;text-decoration:none;color:#344054;background:#fff;border:1px solid var(--line);padding:8px 11px;border-radius:9px;font-size:13px}
+.nav a:hover{color:var(--blue);border-color:#bfdbfe}
+.section{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 5px 18px rgba(16,24,40,.04)}
+.section h2{margin:0 0 6px;font-size:23px}
+.section h3{margin:22px 0 10px;font-size:17px}
+.note{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.metric{border-radius:14px;padding:17px 18px;border:1px solid var(--line);background:#fff;position:relative;overflow:hidden}
+.metric:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue)}
+.metric.purple:before{background:var(--purple)} .metric.teal:before{background:var(--teal)}
+.metric.orange:before{background:var(--orange)} .metric.green:before{background:var(--green)} .metric.red:before{background:var(--red)}
+.metric-title{font-size:13px;color:var(--muted)} .metric-value{font-size:27px;font-weight:750;margin:4px 0 2px}
+.metric-sub{font-size:12.5px;color:#667085}
+.insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.insight{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:12px;padding:14px 15px;background:#fbfdff}
+.insight.purple{border-left-color:var(--purple)} .insight.teal{border-left-color:var(--teal)} .insight.orange{border-left-color:var(--orange)}
+.insight.green{border-left-color:var(--green)} .insight.red{border-left-color:var(--red)}
+.insight p{margin:5px 0 0;color:#475467;font-size:13.5px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.chart-box{padding:16px;border:1px solid var(--line);border-radius:14px;background:#fcfcfd}
+.chart-row{display:grid;grid-template-columns:80px 1fr 125px;gap:10px;align-items:center;margin:11px 0}
+.chart-row.wide-label{grid-template-columns:110px 1fr 125px}
+.chart-label{font-size:13px;color:#344054;font-weight:600}
+.chart-track{height:19px;background:#eef2f7;border-radius:999px;overflow:hidden}
+.chart-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#60a5fa,#2563eb)}
+.chart-fill.purple{background:linear-gradient(90deg,#c4b5fd,#7c3aed)}
+.chart-fill.teal{background:linear-gradient(90deg,#5eead4,#0f9f8f)}
+.chart-fill.orange{background:linear-gradient(90deg,#fde68a,#f59e0b)}
+.chart-fill.green{background:linear-gradient(90deg,#86efac,#16a34a)}
+.chart-value{text-align:right;font-size:13px;font-weight:700} .chart-value small{font-weight:500;color:var(--muted)}
+.table-scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin-top:12px}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:900px;font-size:12.5px}
+thead th{position:sticky;top:0;background:#f9fafb;color:#475467;font-weight:650;text-align:right;padding:10px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+thead th:first-child{text-align:left}
+tbody td{padding:9px 10px;border-bottom:1px solid #eef1f5;text-align:right;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0} tbody tr:hover{background:#fafcff}
+td.left{text-align:left} td.product-name{white-space:normal;min-width:330px;max-width:500px} td.negative{color:var(--red);font-weight:650}
+.matrix td,.matrix th{text-align:center!important} .matrix td:first-child,.matrix th:first-child{text-align:left!important}
+.callout{padding:16px 18px;border-radius:12px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;margin-top:14px}
+.callout.warn{background:#fff7ed;border-color:#fed7aa;color:#9a3412}
+.callout.red{background:#fef2f2;border-color:#fecaca;color:#991b1b}
+.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.action{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fff}
+.action b{display:block;margin-bottom:5px} .action p{margin:0;color:#475467;font-size:13.5px}
+.kicker{color:var(--blue);font-weight:700;font-size:12px;letter-spacing:.5px;text-transform:uppercase}
+.footer{color:#667085;font-size:12.5px;margin-top:22px;padding:0 4px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.insight-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}}
+@media(max-width:650px){.container{padding:14px}.hero{padding:24px 20px}.hero h1{font-size:27px}.grid,.insight-grid,.actions{grid-template-columns:1fr}.chart-row,.chart-row.wide-label{grid-template-columns:82px 1fr 95px}}
+@media print{body{background:#fff}.nav{display:none}.section,.hero{box-shadow:none;break-inside:avoid}.container{max-width:none}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <div class="kicker" style="color:#bfdbfe">Christmas Season Review</div>
+    <h1>2025年圣诞数据复盘</h1>
+    <div class="sub">基于《2025年圣诞复盘数据.xlsx》1337条圣诞相关Listing记录；核心销售窗口统一按2025年9–12月。</div>
+    <div class="scope">
+      <span class="pill">主业务口径：新业务人员</span>
+      <span class="pill">市场：11个欧洲站点</span>
+      <span class="pill">履约：FBA / FBM</span>
+      <span class="pill">同比：2024年9–12月</span>
+      <span class="pill">金额：沿用源表口径</span>
+    </div>
+  </div>
+
+  <div class="nav">
+    <a href="#summary">总览</a><a href="#month">月份</a><a href="#people">业务人员</a><a href="#market">市场</a>
+    <a href="#fba">FBA/FBM</a><a href="#segment">销量段</a><a href="#cohort">新老链接</a><a href="#category">类目</a>
+    <a href="#timing">节奏</a><a href="#profit">利润风险</a><a href="#products">产品</a><a href="#action">2026建议</a>
+  </div>
+
+  <section class="section" id="summary">
+    <div class="kicker">Executive Summary</div>
+    <h2>一、整体复盘总览</h2>
+    <div class="note">“链接数”按源表行记录统计；同一产品可能在不同市场/渠道对应多条Listing。</div>
+    <div class="grid">
+      <div class="metric blue">
+      <div class="metric-title">2025年9–12月销量</div>
+      <div class="metric-value">9,562</div>
+      <div class="metric-sub">同比 +280.5%</div>
+    </div>
+      <div class="metric teal">
+      <div class="metric-title">销售额</div>
+      <div class="metric-value">866,341.8</div>
+      <div class="metric-sub">同比 +305.1%</div>
+    </div>
+      <div class="metric green">
+      <div class="metric-title">利润额</div>
+      <div class="metric-value">170,861.6</div>
+      <div class="metric-sub">同比 +237.6%</div>
+    </div>
+      <div class="metric purple">
+      <div class="metric-title">整体利润率</div>
+      <div class="metric-value">19.7%</div>
+      <div class="metric-sub">退款额 -55,732.5</div>
+    </div>
+      <div class="metric orange">
+      <div class="metric-title">Listing记录</div>
+      <div class="metric-value">1,337</div>
+      <div class="metric-sub">有销量 977（73.1%）</div>
+    </div>
+      <div class="metric blue">
+      <div class="metric-title">产品SKU</div>
+      <div class="metric-value">917</div>
+      <div class="metric-sub">ASIN 1,147 / MSKU 1,278</div>
+    </div>
+      <div class="metric purple">
+      <div class="metric-title">FBA销量占比</div>
+      <div class="metric-value">86.6%</div>
+      <div class="metric-sub">FBA链接占比仅 36.4%</div>
+    </div>
+      <div class="metric red">
+      <div class="metric-title">11–12月销量占比</div>
+      <div class="metric-value">85.2%</div>
+      <div class="metric-sub">12月单月 58.6%</div>
+    </div>
+    </div>
+    <h3>最重要的6个结论</h3>
+    <div class="insight-grid"><div class="insight blue"><b>增长来源</b><p>总销量同比 +280.5%，但2024及以前存量链接同比 -47.3%；2025年新刊贡献 86.1% 的销量。</p></div><div class="insight purple"><b>履约结构</b><p>FBA占 36.4% 链接，却贡献 86.6% 销量；12月FBA销量占比升至 96.9%。</p></div><div class="insight teal"><b>市场集中</b><p>GB+DE合计贡献 92.0% 销量；GB量大但利润率 15.5%，DE利润率 22.4% 更优。</p></div><div class="insight orange"><b>长尾明显</b><p>≤5单链接占 77.4%，仅贡献 11.9% 销量；≥31单仅 6.1% 链接，却贡献 54.3% 销量和 78.4% 利润。</p></div><div class="insight green"><b>旺季窗口</b><p>11–12月贡献 85.2% 销量；12月单月占 58.6%，是绝对核心兑现期。</p></div><div class="insight red"><b>利润风险</b><p>有销量的977条链接中，204条亏损，占 20.9%；这些链接贡献 14.3% 销量但合计亏损 21,203.1。</p></div></div>
+  </section>
+
+  <section class="section" id="month">
+    <div class="kicker">Seasonality</div>
+    <h2>二、月份维度：真正的兑现期在11–12月</h2>
+    <div class="two-col">
+      <div class="chart-box"><h3 style="margin-top:0">月度销量</h3>
+    <div class="chart-row">
+      <div class="chart-label">9月</div>
+      <div class="chart-track"><div class="chart-fill" style="width:7.5%"></div></div>
+      <div class="chart-value">418 <small>(4.4%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">10月</div>
+      <div class="chart-track"><div class="chart-fill" style="width:17.7%"></div></div>
+      <div class="chart-value">995 <small>(10.4%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">11月</div>
+      <div class="chart-track"><div class="chart-fill" style="width:45.3%"></div></div>
+      <div class="chart-value">2,542 <small>(26.6%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">12月</div>
+      <div class="chart-track"><div class="chart-fill" style="width:100.0%"></div></div>
+      <div class="chart-value">5,607 <small>(58.6%)</small></div>
+    </div></div>
+      <div>
+        <div class="callout"><b>节奏判断：</b>9–10月合计只贡献 14.8% 销量；11月开始放量，12月单月达到 5,607 件。圣诞备货、广告和Listing优化的关键动作应在10月前完成，11月进入放量而不是再做基础建设。</div>
+        <div class="callout warn"><b>退款提醒：</b>12月退款额/销售额达到 8.3%，明显高于10–11月。旺季末端需要重点关注配送时效、尺寸/材质预期差、节后退货等问题。</div>
+      </div>
+    </div>
+    <div class="table-scroll"><table><thead><tr><th style="text-align:left">月份</th><th>销量</th><th>销量占比</th><th>销售额</th><th>利润额</th><th>利润率</th><th>退款额/销售额</th><th>FBA销量占比</th><th>当月FBA到货量</th></tr></thead><tbody>
+    <tr><td class="left">9月</td><td class="">418</td><td class="">4.4%</td><td class="">27,822.7</td><td class="">3,596.8</td><td class="">12.9%</td><td class="">6.5%</td><td class="">46.2%</td><td class="">1,207</td></tr><tr><td class="left">10月</td><td class="">995</td><td class="">10.4%</td><td class="">78,125.0</td><td class="">16,328.5</td><td class="">20.9%</td><td class="">2.4%</td><td class="">54.0%</td><td class="">5,827</td></tr><tr><td class="left">11月</td><td class="">2,542</td><td class="">26.6%</td><td class="">239,732.2</td><td class="">35,759.2</td><td class="">14.9%</td><td class="">3.8%</td><td class="">83.4%</td><td class="">5,562</td></tr><tr><td class="left">12月</td><td class="">5,607</td><td class="">58.6%</td><td class="">520,661.9</td><td class="">115,177.2</td><td class="">22.1%</td><td class="">8.3%</td><td class="">96.9%</td><td class="">3,610</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section class="section" id="people">
+    <div class="kicker">Owner Performance</div>
+    <h2>三、业务人员维度</h2>
+    <div class="two-col">
+      <div class="chart-box"><h3 style="margin-top:0">人员销量贡献</h3>
+    <div class="chart-row">
+      <div class="chart-label">薛海月</div>
+      <div class="chart-track"><div class="chart-fill purple" style="width:100.0%"></div></div>
+      <div class="chart-value">5,027 <small>(52.6%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">陈颂</div>
+      <div class="chart-track"><div class="chart-fill purple" style="width:54.3%"></div></div>
+      <div class="chart-value">2,729 <small>(28.5%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">林依婷</div>
+      <div class="chart-track"><div class="chart-fill purple" style="width:35.3%"></div></div>
+      <div class="chart-value">1,777 <small>(18.6%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">曾春燕</div>
+      <div class="chart-track"><div class="chart-fill purple" style="width:0.6%"></div></div>
+      <div class="chart-value">29 <small>(0.3%)</small></div>
+    </div></div>
+      <div>
+        <div class="callout"><b>结构：</b>薛海月贡献 52.6% 销量，是绝对主力；陈颂、林依婷分别贡献 28.5%、18.6%。人员比较时应同步看“新品销量占比”和“FBA占比”，否则容易把资源结构差异误认为纯运营能力差异。</div>
+      </div>
+    </div>
+    <div class="table-scroll"><table class=""><thead><tr><th>业务人员</th><th>链接数</th><th>销量</th><th>销量占比</th><th>销售额</th><th>利润额</th><th>利润率</th><th>有销量链接率</th><th>FBA链接占比</th><th>新品销量占比</th><th>销量同比</th></tr></thead><tbody><tr><td class="left">薛海月</td><td class="">614</td><td class="">5,027</td><td class="">52.6%</td><td class="">507,598.4</td><td class="">115,956.5</td><td class="">22.8%</td><td class="">76.5%</td><td class="">39.1%</td><td class="">78.5%</td><td class="">+303.1%</td></tr><tr><td class="left">陈颂</td><td class="">393</td><td class="">2,729</td><td class="">28.5%</td><td class="">216,510.8</td><td class="">35,175.3</td><td class="">16.2%</td><td class="">78.9%</td><td class="">38.7%</td><td class="">93.6%</td><td class="">+554.4%</td></tr><tr><td class="left">林依婷</td><td class="">238</td><td class="">1,777</td><td class="">18.6%</td><td class="">139,951.0</td><td class="">18,935.6</td><td class="">13.5%</td><td class="">73.5%</td><td class="">30.7%</td><td class="">96.9%</td><td class="">+416.6%</td></tr><tr><td class="left">曾春燕</td><td class="">92</td><td class="">29</td><td class="">0.3%</td><td class="">2,281.5</td><td class="">794.2</td><td class="">34.8%</td><td class="">23.9%</td><td class="">22.8%</td><td class="">58.6%</td><td class="">-94.3%</td></tr></tbody></table></div>
+  </section>
+
+  <section class="section" id="market">
+    <div class="kicker">Market Mix</div>
+    <h2>四、市场维度：GB与DE决定大盘</h2>
+    <div class="two-col">
+      <div class="chart-box"><h3 style="margin-top:0">主要市场销量</h3>
+    <div class="chart-row">
+      <div class="chart-label">GB</div>
+      <div class="chart-track"><div class="chart-fill teal" style="width:100.0%"></div></div>
+      <div class="chart-value">4,996 <small>(52.2%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">DE</div>
+      <div class="chart-track"><div class="chart-fill teal" style="width:76.0%"></div></div>
+      <div class="chart-value">3,797 <small>(39.7%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">FR</div>
+      <div class="chart-track"><div class="chart-fill teal" style="width:6.3%"></div></div>
+      <div class="chart-value">314 <small>(3.3%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">IT</div>
+      <div class="chart-track"><div class="chart-fill teal" style="width:4.6%"></div></div>
+      <div class="chart-value">230 <small>(2.4%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">ES</div>
+      <div class="chart-track"><div class="chart-fill teal" style="width:2.9%"></div></div>
+      <div class="chart-value">146 <small>(1.5%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">NL</div>
+      <div class="chart-track"><div class="chart-fill teal" style="width:0.6%"></div></div>
+      <div class="chart-value">31 <small>(0.3%)</small></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">SE</div>
+      <div class="chart-track"><div class="chart-fill teal" style="width:0.5%"></div></div>
+      <div class="chart-value">26 <small>(0.3%)</small></div>
+    </div></div>
+      <div>
+        <div class="callout"><b>市场集中度：</b>GB销量 4,996，占 52.2%；DE销量 3,797，占 39.7%。两站合计 92.0%，2026年圣诞资源分配应优先围绕这两个站点建立主战场。</div>
+        <div class="callout warn"><b>利润差异：</b>GB利润率 15.5%，明显低于DE的 22.4%；GB虽然体量最大，但更需要优化广告、价格、退款和FBA费用结构。</div>
+      </div>
+    </div>
+    <div class="table-scroll"><table class=""><thead><tr><th>市场</th><th>链接数</th><th>销量</th><th>销量占比</th><th>销售额</th><th>利润额</th><th>利润率</th><th>有销量链接率</th><th>销量同比</th></tr></thead><tbody><tr><td class="left">GB</td><td class="">501</td><td class="">4,996</td><td class="">52.2%</td><td class="">433,355.9</td><td class="">67,192.7</td><td class="">15.5%</td><td class="">74.9%</td><td class="">+249.9%</td></tr><tr><td class="left">DE</td><td class="">427</td><td class="">3,797</td><td class="">39.7%</td><td class="">356,489.1</td><td class="">79,906.6</td><td class="">22.4%</td><td class="">75.4%</td><td class="">+440.9%</td></tr><tr><td class="left">FR</td><td class="">134</td><td class="">314</td><td class="">3.3%</td><td class="">29,637.5</td><td class="">6,995.3</td><td class="">23.6%</td><td class="">73.1%</td><td class="">+223.7%</td></tr><tr><td class="left">IT</td><td class="">106</td><td class="">230</td><td class="">2.4%</td><td class="">20,954.9</td><td class="">5,641.6</td><td class="">26.9%</td><td class="">68.9%</td><td class="">+27.1%</td></tr><tr><td class="left">ES</td><td class="">68</td><td class="">146</td><td class="">1.5%</td><td class="">19,298.6</td><td class="">8,994.8</td><td class="">46.6%</td><td class="">64.7%</td><td class="">+156.1%</td></tr><tr><td class="left">NL</td><td class="">30</td><td class="">31</td><td class="">0.3%</td><td class="">2,715.8</td><td class="">1,058.1</td><td class="">39.0%</td><td class="">70.0%</td><td class="">+210.0%</td></tr><tr><td class="left">SE</td><td class="">36</td><td class="">26</td><td class="">0.3%</td><td class="">1,718.1</td><td class="">417.9</td><td class="">24.3%</td><td class="">61.1%</td><td class="">+85.7%</td></tr><tr><td class="left">BE</td><td class="">20</td><td class="">12</td><td class="">0.1%</td><td class="">1,275.0</td><td class="">334.8</td><td class="">26.3%</td><td class="">60.0%</td><td class="">-29.4%</td></tr><tr><td class="left">PL</td><td class="">8</td><td class="">5</td><td class="">0.1%</td><td class="">236.8</td><td class="">88.3</td><td class="">37.3%</td><td class="">62.5%</td><td class="">+25.0%</td></tr><tr><td class="left">TR</td><td class="">5</td><td class="">3</td><td class="">0.0%</td><td class="">538.2</td><td class="">176.1</td><td class="">32.7%</td><td class="">60.0%</td><td class="">+0.0%</td></tr><tr><td class="left">IE</td><td class="">2</td><td class="">2</td><td class="">0.0%</td><td class="">122.0</td><td class="">55.5</td><td class="">45.5%</td><td class="">100.0%</td><td class="">-</td></tr></tbody></table></div>
+    <h3>业务人员 × 市场销量矩阵</h3>
+    <div class="table-scroll"><table class="matrix"><thead><tr><th>业务人员</th><th>GB</th><th>DE</th><th>FR</th><th>IT</th><th>ES</th><th>NL</th><th>SE</th><th>BE</th><th>PL</th><th>TR</th><th>IE</th><th>合计</th></tr></thead><tbody><tr><td class="left">薛海月</td><td style="background:rgba(37,99,235,0.804)">2,188</td><td style="background:rgba(37,99,235,0.840)">2,290</td><td style="background:rgba(37,99,235,0.124)">240</td><td style="background:rgba(37,99,235,0.094)">156</td><td style="background:rgba(37,99,235,0.082)">119</td><td style="background:rgba(37,99,235,0.043)">8</td><td style="background:rgba(37,99,235,0.046)">17</td><td style="background:rgba(37,99,235,0.042)">7</td><td style="background:rgba(37,99,235,0.041)">2</td><td style="background:rgba(37,99,235,0.040)">0</td><td style="background:rgba(37,99,235,0.040)">0</td><td class="">5,027</td></tr><tr><td class="left">陈颂</td><td style="background:rgba(37,99,235,0.671)">1,806</td><td style="background:rgba(37,99,235,0.325)">815</td><td style="background:rgba(37,99,235,0.061)">60</td><td style="background:rgba(37,99,235,0.049)">26</td><td style="background:rgba(37,99,235,0.045)">15</td><td style="background:rgba(37,99,235,0.041)">3</td><td style="background:rgba(37,99,235,0.041)">2</td><td style="background:rgba(37,99,235,0.040)">0</td><td style="background:rgba(37,99,235,0.040)">0</td><td style="background:rgba(37,99,235,0.040)">1</td><td style="background:rgba(37,99,235,0.040)">1</td><td class="">2,729</td></tr><tr><td class="left">林依婷</td><td style="background:rgba(37,99,235,0.389)">998</td><td style="background:rgba(37,99,235,0.282)">692</td><td style="background:rgba(37,99,235,0.045)">14</td><td style="background:rgba(37,99,235,0.057)">48</td><td style="background:rgba(37,99,235,0.044)">12</td><td style="background:rgba(37,99,235,0.043)">8</td><td style="background:rgba(37,99,235,0.041)">3</td><td style="background:rgba(37,99,235,0.040)">1</td><td style="background:rgba(37,99,235,0.040)">1</td><td style="background:rgba(37,99,235,0.040)">0</td><td style="background:rgba(37,99,235,0.040)">0</td><td class="">1,777</td></tr><tr><td class="left">曾春燕</td><td style="background:rgba(37,99,235,0.041)">4</td><td style="background:rgba(37,99,235,0.040)">0</td><td style="background:rgba(37,99,235,0.040)">0</td><td style="background:rgba(37,99,235,0.040)">0</td><td style="background:rgba(37,99,235,0.040)">0</td><td style="background:rgba(37,99,235,0.044)">12</td><td style="background:rgba(37,99,235,0.041)">4</td><td style="background:rgba(37,99,235,0.041)">4</td><td style="background:rgba(37,99,235,0.041)">2</td><td style="background:rgba(37,99,235,0.041)">2</td><td style="background:rgba(37,99,235,0.040)">1</td><td class="">29</td></tr></tbody></table></div>
+  </section>
+
+  <section class="section" id="fba">
+    <div class="kicker">Fulfillment</div>
+    <h2>五、FBA / FBM维度：FBA是圣诞增长发动机</h2>
+    <div class="table-scroll"><table class=""><thead><tr><th>履约</th><th>链接数</th><th>链接占比</th><th>销量</th><th>销量占比</th><th>单链接销量</th><th>有销量链接率</th><th>销售额</th><th>利润额</th><th>利润率</th><th>销量同比</th></tr></thead><tbody><tr><td class="left">FBA</td><td class="">486</td><td class="">36.4%</td><td class="">8,285</td><td class="">86.6%</td><td class="">17.0</td><td class="">85.4%</td><td class="">770,744.4</td><td class="">144,092.3</td><td class="">18.7%</td><td class="">+333.5%</td></tr><tr><td class="left">FBM</td><td class="">851</td><td class="">63.6%</td><td class="">1,277</td><td class="">13.4%</td><td class="">1.5</td><td class="">66.0%</td><td class="">95,597.4</td><td class="">26,769.3</td><td class="">28.0%</td><td class="">+112.1%</td></tr></tbody></table></div>
+    <div class="insight-grid">
+      <div class="insight purple"><b>效率差距</b><p>FBA单链接旺季销量 17.0 件，FBM仅 1.5 件；FBA有销量链接率 85.4%，也高于FBM的 66.0%。</p></div>
+      <div class="insight orange"><b>利润率取舍</b><p>FBA利润率 18.7% 低于FBM的 28.0%，说明FBA更擅长放量，但必须同步盯紧仓储/配送、促销和广告成本。</p></div>
+      <div class="insight green"><b>旺季末端依赖</b><p>12月FBA贡献 96.9% 的销量，临近圣诞时FBM几乎无法承担主销量，库存前置的重要性非常高。</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="segment">
+    <div class="kicker">Sales Ladder</div>
+    <h2>六、销量段维度：长尾很长，利润高度集中</h2>
+    <div class="two-col">
+      <div class="chart-box"><h3 style="margin-top:0">各销量段贡献</h3>
+    <div class="chart-row wide-label">
+      <div class="chart-label">销量不足1单</div>
+      <div class="chart-track"><div class="chart-fill orange" style="width:0.0%"></div></div>
+      <div class="chart-value">0 <small>0.0%</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">1-5单</div>
+      <div class="chart-track"><div class="chart-fill orange" style="width:56.9%"></div></div>
+      <div class="chart-value">1,139 <small>11.9%</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">6-10单</div>
+      <div class="chart-track"><div class="chart-fill orange" style="width:27.2%"></div></div>
+      <div class="chart-value">544 <small>5.7%</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">11-20单</div>
+      <div class="chart-track"><div class="chart-fill orange" style="width:73.4%"></div></div>
+      <div class="chart-value">1,471 <small>15.4%</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">21-30单</div>
+      <div class="chart-track"><div class="chart-fill orange" style="width:60.9%"></div></div>
+      <div class="chart-value">1,220 <small>12.8%</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">31-50单</div>
+      <div class="chart-track"><div class="chart-fill orange" style="width:100.0%"></div></div>
+      <div class="chart-value">2,003 <small>20.9%</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">51-100单</div>
+      <div class="chart-track"><div class="chart-fill orange" style="width:62.2%"></div></div>
+      <div class="chart-value">1,246 <small>13.0%</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">101-300单</div>
+      <div class="chart-track"><div class="chart-fill orange" style="width:96.8%"></div></div>
+      <div class="chart-value">1,939 <small>20.3%</small></div>
+    </div></div>
+      <div>
+        <div class="callout red"><b>低效池：</b>“0–5单”合计 1,035 条，占全部链接 77.4%，却只贡献 1,139 件、11.9% 销量。后续不能继续平均分配优化资源。</div>
+        <div class="callout"><b>高产池：</b>“31单以上”只有82条，占 6.1%，却贡献 54.3% 销量和 78.4% 利润，应作为2026圣诞优先复投/扩站/提库存池。</div>
+      </div>
+    </div>
+    <div class="table-scroll"><table class=""><thead><tr><th>销量段</th><th>链接数</th><th>链接占比</th><th>销量</th><th>销量占比</th><th>销售额</th><th>利润额</th><th>利润率</th><th>亏损链接率</th></tr></thead><tbody><tr><td class="left">销量不足1单</td><td class="">360</td><td class="">26.9%</td><td class="">0</td><td class="">0.0%</td><td class="">0.0</td><td class="">-471.7</td><td class="">0.0%</td><td class="">25.3%</td></tr><tr><td class="left">1-5单</td><td class="">675</td><td class="">50.5%</td><td class="">1,139</td><td class="">11.9%</td><td class="">81,948.2</td><td class="">10,910.9</td><td class="">13.3%</td><td class="">18.1%</td></tr><tr><td class="left">6-10单</td><td class="">73</td><td class="">5.5%</td><td class="">544</td><td class="">5.7%</td><td class="">41,307.0</td><td class="">1,230.8</td><td class="">3.0%</td><td class="">46.6%</td></tr><tr><td class="left">11-20单</td><td class="">100</td><td class="">7.5%</td><td class="">1,471</td><td class="">15.4%</td><td class="">114,870.2</td><td class="">9,982.4</td><td class="">8.7%</td><td class="">36.0%</td></tr><tr><td class="left">21-30单</td><td class="">47</td><td class="">3.5%</td><td class="">1,220</td><td class="">12.8%</td><td class="">96,797.0</td><td class="">15,228.4</td><td class="">15.7%</td><td class="">12.8%</td></tr><tr><td class="left">31-50单</td><td class="">51</td><td class="">3.8%</td><td class="">2,003</td><td class="">20.9%</td><td class="">172,920.4</td><td class="">32,383.6</td><td class="">18.7%</td><td class="">11.8%</td></tr><tr><td class="left">51-100单</td><td class="">20</td><td class="">1.5%</td><td class="">1,246</td><td class="">13.0%</td><td class="">131,327.0</td><td class="">36,572.6</td><td class="">27.8%</td><td class="">0.0%</td></tr><tr><td class="left">101-300单</td><td class="">11</td><td class="">0.8%</td><td class="">1,939</td><td class="">20.3%</td><td class="">227,172.0</td><td class="">65,024.6</td><td class="">28.6%</td><td class="">0.0%</td></tr></tbody></table></div>
+  </section>
+
+  <section class="section" id="cohort">
+    <div class="kicker">Cohort</div>
+    <h2>七、新老链接维度：增长几乎全部来自2025新品</h2>
+    <div class="table-scroll"><table class=""><thead><tr><th>刊登批次</th><th>链接数</th><th>25年销量</th><th>25年销量占比</th><th>24年销量</th><th>销量同比</th><th>25年有销量率</th><th>25年利润额</th><th>25年利润率</th></tr></thead><tbody><tr><td class="left">2025年新刊</td><td class="">775</td><td class="">8,237</td><td class="">86.1%</td><td class="">1</td><td class="">+823600.0%</td><td class="">95.7%</td><td class="">144,241.8</td><td class="">19.6%</td></tr><tr><td class="left">2024年刊登</td><td class="">128</td><td class="">270</td><td class="">2.8%</td><td class="">365</td><td class="">-26.0%</td><td class="">35.9%</td><td class="">4,257.9</td><td class="">17.3%</td></tr><tr><td class="left">2023年及以前</td><td class="">433</td><td class="">1,055</td><td class="">11.0%</td><td class="">2,147</td><td class="">-50.9%</td><td class="">43.6%</td><td class="">22,361.8</td><td class="">21.1%</td></tr></tbody></table></div>
+    <div class="callout warn"><b>增长质量判断：</b>2025年新刊775条，贡献 8,237 件，占 86.1%；而2024及以前561条存量链接从2024年 2,512 件降到2025年 1,325 件，同比 -47.3%。因此2025的大盘增长不能简单理解为“老链接做强”，核心是新品数量和FBA资源扩张带来的结构性增长。</div>
+  </section>
+
+  <section class="section" id="category">
+    <div class="kicker">Category</div>
+    <h2>八、类目维度</h2>
+    <div class="table-scroll"><table class=""><thead><tr><th>一级类目</th><th>链接数</th><th>销量</th><th>销量占比</th><th>利润额</th><th>利润率</th><th>有销量链接率</th></tr></thead><tbody><tr><td class="left">未填写</td><td class="">608</td><td class="">4,885</td><td class="">51.1%</td><td class="">88,841.2</td><td class="">20.8%</td><td class="">74.5%</td></tr><tr><td class="left">家居、厨具、家装</td><td class="">294</td><td class="">2,417</td><td class="">25.3%</td><td class="">41,701.3</td><td class="">17.8%</td><td class="">84.4%</td></tr><tr><td class="left">宠物用品</td><td class="">171</td><td class="">699</td><td class="">7.3%</td><td class="">22,797.5</td><td class="">25.4%</td><td class="">53.8%</td></tr><tr><td class="left">玩具和游戏</td><td class="">56</td><td class="">546</td><td class="">5.7%</td><td class="">8,722.4</td><td class="">20.0%</td><td class="">98.2%</td></tr><tr><td class="left">艺术品、工艺品和缝纫用品</td><td class="">38</td><td class="">423</td><td class="">4.4%</td><td class="">3,245.4</td><td class="">9.8%</td><td class="">81.6%</td></tr><tr><td class="left">时尚</td><td class="">71</td><td class="">349</td><td class="">3.6%</td><td class="">3,973.7</td><td class="">19.3%</td><td class="">66.2%</td></tr><tr><td class="left">美容和个人护理</td><td class="">31</td><td class="">113</td><td class="">1.2%</td><td class="">751.8</td><td class="">9.8%</td><td class="">51.6%</td></tr><tr><td class="left">健康和家居用品</td><td class="">10</td><td class="">75</td><td class="">0.8%</td><td class="">135.3</td><td class="">2.4%</td><td class="">100.0%</td></tr><tr><td class="left">运动户外休闲</td><td class="">5</td><td class="">18</td><td class="">0.2%</td><td class="">79.9</td><td class="">7.7%</td><td class="">80.0%</td></tr><tr><td class="left">家居装修</td><td class="">28</td><td class="">16</td><td class="">0.2%</td><td class="">290.1</td><td class="">21.7%</td><td class="">39.3%</td></tr><tr><td class="left">庭院、草坪和园艺</td><td class="">10</td><td class="">15</td><td class="">0.2%</td><td class="">228.1</td><td class="">9.2%</td><td class="">50.0%</td></tr><tr><td class="left">汽车用品</td><td class="">6</td><td class="">5</td><td class="">0.1%</td><td class="">91.2</td><td class="">32.8%</td><td class="">66.7%</td></tr></tbody></table></div>
+    <div class="callout warn"><b>数据完整性：</b>“一级类目中文”有 608 条为空，占 45.5%。当前类目结论只能作为方向判断；2026复盘表建议把平台类目映射为统一标准类目，否则会影响品类资源配置和横向比较。</div>
+  </section>
+
+  <section class="section" id="timing">
+    <div class="kicker">Timing & Stocking</div>
+    <h2>九、旺季时间与FBA到货节奏</h2>
+    <div class="two-col">
+      <div class="chart-box"><h3 style="margin-top:0">各Listing“单日销量峰值”分布</h3>
+    <div class="chart-row wide-label">
+      <div class="chart-label">9月上半月</div>
+      <div class="chart-track"><div class="chart-fill green" style="width:15.4%"></div></div>
+      <div class="chart-value">105 <small>峰值件数</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">9月下半月</div>
+      <div class="chart-track"><div class="chart-fill green" style="width:11.3%"></div></div>
+      <div class="chart-value">77 <small>峰值件数</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">10月上半月</div>
+      <div class="chart-track"><div class="chart-fill green" style="width:16.9%"></div></div>
+      <div class="chart-value">115 <small>峰值件数</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">10月下半月</div>
+      <div class="chart-track"><div class="chart-fill green" style="width:38.7%"></div></div>
+      <div class="chart-value">264 <small>峰值件数</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">11月上半月</div>
+      <div class="chart-track"><div class="chart-fill green" style="width:28.6%"></div></div>
+      <div class="chart-value">195 <small>峰值件数</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">11月下半月</div>
+      <div class="chart-track"><div class="chart-fill green" style="width:53.4%"></div></div>
+      <div class="chart-value">364 <small>峰值件数</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">12月上半月</div>
+      <div class="chart-track"><div class="chart-fill green" style="width:91.6%"></div></div>
+      <div class="chart-value">625 <small>峰值件数</small></div>
+    </div>
+    <div class="chart-row wide-label">
+      <div class="chart-label">12月下半月</div>
+      <div class="chart-track"><div class="chart-fill green" style="width:100.0%"></div></div>
+      <div class="chart-value">682 <small>峰值件数</small></div>
+    </div></div>
+      <div>
+        <h3 style="margin-top:0">FBA首次到货时间 × 旺季销量</h3>
+        <div class="table-scroll"><table class=""><thead><tr><th>FBA首次到货时间</th><th>链接数</th><th>25年旺季销量</th><th>单链接销量</th></tr></thead><tbody><tr><td class="left">2024及以前</td><td class="">77</td><td class="">963</td><td class="">12.5</td></tr><tr><td class="left">2025年1-8月</td><td class="">19</td><td class="">533</td><td class="">28.1</td></tr><tr><td class="left">2025年9月</td><td class="">25</td><td class="">642</td><td class="">25.7</td></tr><tr><td class="left">2025年10月</td><td class="">128</td><td class="">3,196</td><td class="">25.0</td></tr><tr><td class="left">2025年11月</td><td class="">114</td><td class="">2,423</td><td class="">21.3</td></tr><tr><td class="left">2025年12月</td><td class="">37</td><td class="">386</td><td class="">10.4</td></tr><tr><td class="left">无首次到货时间</td><td class="">84</td><td class="">142</td><td class="">1.7</td></tr><tr><td class="left">2026及以后</td><td class="">2</td><td class="">0</td><td class="">0.0</td></tr></tbody></table></div>
+      </div>
+    </div>
+    <div class="callout"><b>备货建议：</b>从首次到货结构看，2025年10月首次到货的FBA链接128条，旺季合计销量 3,196；11月首次到货114条，也贡献 2,423。但12月才首次到货的链接单链接销量明显下降至 10.4 件。下一季应尽量把核心FBA新品的首批可售时间前置到9–10月。</div>
+    <div class="note" style="margin-top:8px">说明：“峰值日期”是每条Listing的旺季单日最高销量日期，并非全店逐日总销量；“FBA首次到货时间”是首到仓时间，不等同于2025季节性补货时间。</div>
+  </section>
+
+  <section class="section" id="profit">
+    <div class="kicker">Profit & Ads</div>
+    <h2>十、利润、亏损链接与广告数据</h2>
+    <div class="grid">
+      <div class="metric red">
+      <div class="metric-title">有销量亏损链接</div>
+      <div class="metric-value">204</div>
+      <div class="metric-sub">占有销量链接 20.9%</div>
+    </div>
+      <div class="metric orange">
+      <div class="metric-title">亏损链接销量</div>
+      <div class="metric-value">1,370</div>
+      <div class="metric-sub">占总销量 14.3%</div>
+    </div>
+      <div class="metric red">
+      <div class="metric-title">亏损合计</div>
+      <div class="metric-value">-21,203.1</div>
+      <div class="metric-sub">仅统计有销量且利润额<0的链接</div>
+    </div>
+      <div class="metric purple">
+      <div class="metric-title">广告费（已记录月份）</div>
+      <div class="metric-value">109,921.3</div>
+      <div class="metric-sub">9/10/12月广告费÷销售额 17.5%</div>
+    </div>
+    </div>
+    <h3>广告费（源表缺少2025年11月字段）</h3>
+    <div class="table-scroll"><table class=""><thead><tr><th>月份</th><th>广告费</th><th>同期销售额</th><th>广告费/销售额</th></tr></thead><tbody><tr><td class="left">9月</td><td class="">7,596.2</td><td class="">27,822.7</td><td class="">27.3%</td></tr><tr><td class="left">10月</td><td class="">41,231.5</td><td class="">78,125.0</td><td class="">52.8%</td></tr><tr><td class="left">12月</td><td class="">61,093.6</td><td class="">520,661.9</td><td class="">11.7%</td></tr></tbody></table></div>
+    <div class="callout warn"><b>广告口径限制：</b>源表没有“2025年11月广告费”列，因此不能计算完整9–12月广告费、完整TACOS或完整广告ROI。本报告只展示9月、10月、12月已记录数据，并明确不把11月缺失值当成0。</div>
+    <h3>亏损产品TOP</h3>
+    <div class="table-scroll"><table class=""><thead><tr><th>#</th><th>产品SKU</th><th>SKU中文名称</th><th>市场</th><th>销量</th><th>销售额</th><th>利润额</th><th>利润率</th></tr></thead><tbody><tr><td class="">1</td><td class="left">21648275</td><td class="left product-name">圣诞降临日历 倒计时日历房屋形状礼品盒（姜饼盒房子24个装）</td><td class="left">DE / ES / GB</td><td class="">50</td><td class="">5,103.4</td><td class="negative">-664.5</td><td class="negative">-13.0%</td></tr><tr><td class="">2</td><td class="left">14959679</td><td class="left product-name">蝴蝶结铃铛花环 圣诞树装饰配件 圣诞节礼品盒装饰 10pcs</td><td class="left">GB</td><td class="">35</td><td class="">2,558.7</td><td class="negative">-657.1</td><td class="negative">-25.7%</td></tr><tr><td class="">3</td><td class="left">6137656</td><td class="left product-name">圣诞蜡烛台装饰 DIY手工仿真浆果花环 （红绿内径约7cm）6pcs 天然松果</td><td class="left">GB</td><td class="">46</td><td class="">3,862.6</td><td class="negative">-608.8</td><td class="negative">-15.8%</td></tr><tr><td class="">4</td><td class="left">1669281</td><td class="left product-name">圣诞泡沫工艺球 白色4cm 10个</td><td class="left">GB</td><td class="">12</td><td class="">780.6</td><td class="negative">-579.4</td><td class="negative">-74.2%</td></tr><tr><td class="">5</td><td class="left">17269352</td><td class="left product-name">圣诞降临日历糖果盒圣诞节倒计时数字礼品盒包装纸盒（24PCS）</td><td class="left">DE / GB</td><td class="">21</td><td class="">1,725.9</td><td class="negative">-495.9</td><td class="negative">-28.7%</td></tr><tr><td class="">6</td><td class="left">17284921</td><td class="left product-name">北欧乡村圣诞雪人盘餐具浮雕牛排甜点西式陶瓷盘（椭圆盘）</td><td class="left">GB</td><td class="">10</td><td class="">477.2</td><td class="negative">-473.2</td><td class="negative">-99.1%</td></tr><tr><td class="">7</td><td class="left">5851221</td><td class="left product-name">针织小圣诞帽DIY手工制作配件  红色   10pcs/包</td><td class="left">DE / GB</td><td class="">25</td><td class="">854.5</td><td class="negative">-458.7</td><td class="negative">-53.7%</td></tr><tr><td class="">8</td><td class="left">15568333</td><td class="left product-name">办led迷你小夜灯 礼品卡通宠物小夜灯 折叠带耳朵小台灯（ 灰色-斑点小鹿）不带电池发货 15454072*2</td><td class="left">DE</td><td class="">35</td><td class="">1,827.5</td><td class="negative">-440.5</td><td class="negative">-24.1%</td></tr><tr><td class="">9</td><td class="left">16876968</td><td class="left product-name">LED仿真柴火火焰灯 圣诞节万圣节户外野营场景装饰摆件节日礼品 1pc</td><td class="left">GB</td><td class="">20</td><td class="">1,923.3</td><td class="negative">-439.9</td><td class="negative">-22.9%</td></tr><tr><td class="">10</td><td class="left">10768034</td><td class="left product-name">IMIKEYA  爱心本白圣诞树裙（91cm）</td><td class="left">DE</td><td class="">11</td><td class="">1,546.1</td><td class="negative">-417.9</td><td class="negative">-27.0%</td></tr><tr><td class="">11</td><td class="left">6207728</td><td class="left product-name">平安对装小鹿车饰摆件   （藏青色）</td><td class="left">GB</td><td class="">6</td><td class="">271.8</td><td class="negative">-318.0</td><td class="negative">-117.0%</td></tr><tr><td class="">12</td><td class="left">17409935</td><td class="left product-name">圣诞节雪景球 透明塑料圆形水球雪球diy配件（150ml塑料盖）10pcs</td><td class="left">GB</td><td class="">5</td><td class="">274.8</td><td class="negative">-313.3</td><td class="negative">-114.0%</td></tr></tbody></table></div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="kicker">Hero Products</div>
+    <h2>十一、头部产品TOP</h2>
+    <div class="table-scroll"><table class=""><thead><tr><th>#</th><th>产品SKU</th><th>SKU中文名称</th><th>市场</th><th>销量</th><th>销售额</th><th>利润额</th><th>利润率</th></tr></thead><tbody><tr><td class="">1</td><td class="left">9394588</td><td class="left product-name">18cm白胚胡桃夹子 胡桃人木偶 diy手工绘画涂鸦胡桃士兵（18cm单个装带颜料画笔毛发）1set</td><td class="left">DE / GB</td><td class="">469</td><td class="">56,534.6</td><td class="">21,404.7</td><td class="">37.9%</td></tr><tr><td class="">2</td><td class="left">14886162</td><td class="left product-name">圣诞节胡桃夹子木偶白胚胡桃兵（随机款）12pcs</td><td class="left">DE / FR / GB</td><td class="">350</td><td class="">70,676.0</td><td class="">23,537.0</td><td class="">33.3%</td></tr><tr><td class="">3</td><td class="left">6288676</td><td class="left product-name">圣诞宠物头花皮筋（100pcs 混款）</td><td class="left">GB / IT</td><td class="">289</td><td class="">51,934.1</td><td class="">15,585.4</td><td class="">30.0%</td></tr><tr><td class="">4</td><td class="left">14895619</td><td class="left product-name">预裁小矮人胡须头发配件套装（12件白色*18*9CM+12只木球）24pcs</td><td class="left">DE / ES / FR / GB / IT</td><td class="">284</td><td class="">18,403.5</td><td class="">4,612.1</td><td class="">25.1%</td></tr><tr><td class="">5</td><td class="left">20503346</td><td class="left product-name">迷你珠链灯泡灯串 圣诞树装饰迷你霓虹灯串模型 娃娃屋配件（B-电池盒）（需自备2节5号电池）</td><td class="left">FR / GB / IE</td><td class="">273</td><td class="">20,229.6</td><td class="">5,791.6</td><td class="">28.6%</td></tr><tr><td class="">6</td><td class="left">2361157</td><td class="left product-name">圣诞节闪光胸针（背包老人25个打包）</td><td class="left">DE / ES / GB</td><td class="">262</td><td class="">23,367.6</td><td class="">5,528.4</td><td class="">23.7%</td></tr><tr><td class="">7</td><td class="left">1669272</td><td class="left product-name">圣诞泡沫工艺球 白色7cm 10个</td><td class="left">GB</td><td class="">184</td><td class="">17,029.2</td><td class="">1,115.4</td><td class="">6.5%</td></tr><tr><td class="">8</td><td class="left">21686404</td><td class="left product-name">圣诞迷你球饰品仿珍珠吊坠200pcs（50*红50*金50*绿50*白）</td><td class="left">DE / FR / GB</td><td class="">169</td><td class="">12,989.0</td><td class="">1,564.1</td><td class="">12.0%</td></tr><tr><td class="">9</td><td class="left">20648510</td><td class="left product-name">迷你娃娃屋圣诞灯圣诞娃娃屋工艺品仙女花园配件假灯串  （小灯101#电镀珠 5米筒）</td><td class="left">DE / GB</td><td class="">165</td><td class="">11,666.0</td><td class="">1,926.5</td><td class="">16.5%</td></tr><tr><td class="">10</td><td class="left">1477710</td><td class="left product-name">圣诞节装饰用品圣诞树挂饰蝴蝶结12只装（金色）</td><td class="left">DE / GB</td><td class="">165</td><td class="">7,455.6</td><td class="">2,729.9</td><td class="">36.6%</td></tr><tr><td class="">11</td><td class="left">21057658</td><td class="left product-name">9cm迷你礼帽洋娃娃帽子 手工DIY帽胚 宠物魔术帽配饰  4pcs（拉毛布黑色）</td><td class="left">GB</td><td class="">137</td><td class="">13,267.7</td><td class="">3,042.3</td><td class="">22.9%</td></tr><tr><td class="">12</td><td class="left">17189654</td><td class="left product-name">150ml塑料透明小圆球糖果瓶 DIY手工制作雪球水球罩（铝盖）12pcs/包</td><td class="left">DE</td><td class="">136</td><td class="">14,605.3</td><td class="">2,960.8</td><td class="">20.3%</td></tr></tbody></table></div>
+    <div class="callout"><b>产品策略：</b>头部SKU不仅要看销量，还要优先筛“销量高 + 利润率高 + 跨市场可复制”的款。比如胡桃夹子、圣诞宠物配饰、DIY类配件等已经形成明显头部，可作为2026提前备货、扩站和A+/视频升级的重点池。</div>
+  </section>
+
+  <section class="section" id="action">
+    <div class="kicker">Action Plan</div>
+    <h2>十二、2026年圣诞运营建议</h2>
+    <div class="actions">
+      <div class="action"><b>1. 建立“31单以上”核心池</b><p>82条高产链接贡献54%以上销量、78%以上利润。优先锁库存、扩市场、提前做Listing/A+/视频和广告词包，避免再平均分配运营资源。</p></div>
+      <div class="action"><b>2. 6–30单做冲刺池</b><p>中腰220条链接贡献约34%销量，但利润率只有约10.5%。逐条判断是广告过重、售价偏低、退款高还是FBA成本高，目标是把可盈利的11–30单产品推到31单以上。</p></div>
+      <div class="action"><b>3. 0–5单长尾做快速淘汰</b><p>1035条链接占77%但仅贡献12%销量。建议按7–14天窗口快速测试，达不到点击/转化/利润门槛就停止追加资源。</p></div>
+      <div class="action"><b>4. FBA前置到9–10月</b><p>12月FBA占销量近97%，圣诞最后阶段FBM承接能力弱。核心新品首批到仓目标应放在9–10月，11月只做补货和爆款加仓。</p></div>
+      <div class="action"><b>5. GB重点做利润治理</b><p>GB是最大市场，但利润率低于DE。建议把GB拆成“广告费、退款、配送/FBA费、售价”四项，优先优化高销量低利润链接。</p></div>
+      <div class="action"><b>6. 老链接不能只看历史</b><p>存量链接同比明显衰退。2026应把老品分为“仍有自然流量”“可重做后复活”“直接清退”三组，减少因为历史销量而继续占用库存和广告。</p></div>
+      <div class="action"><b>7. 新品继续做，但要看成功率</b><p>2025新品贡献86%销量，说明新品打法有效；下一步要从“铺得多”升级为“新品FBA到仓率、30单达标率、利润达标率”三指标管理。</p></div>
+      <div class="action"><b>8. 完善复盘字段</b><p>补齐11月广告费、统一类目映射、固定业务归属快照、增加季末库存和断货天数。这样2026复盘可以真正拆出广告、库存与断货对销量的影响。</p></div>
+    </div>
+    <h3>建议2026圣诞跟踪的核心KPI</h3>
+    <div class="table-scroll"><table><thead><tr><th style="text-align:left">KPI</th><th style="text-align:left">建议口径</th><th style="text-align:left">管理目的</th></tr></thead><tbody>
+      <tr><td class="left">新品30单达标率</td><td class="left">2026新刊圣诞链接中，9–12月销量≥31单占比</td><td class="left">从“铺新品”转向“铺出有效新品”</td></tr>
+      <tr><td class="left">FBA首批到仓准时率</td><td class="left">核心新品在10月31日前可售的比例</td><td class="left">防止旺季到货过晚</td></tr>
+      <tr><td class="left">存量链接保有率</td><td class="left">2025高产链接在2026仍保持31单以上的比例</td><td class="left">提升爆款生命周期</td></tr>
+      <tr><td class="left">盈利链接率</td><td class="left">有销量链接中利润额>0的比例</td><td class="left">避免用亏损换销量</td></tr>
+      <tr><td class="left">GB利润率</td><td class="left">GB站9–12月整体利润额/销售额</td><td class="left">治理最大市场的利润质量</td></tr>
+      <tr><td class="left">0–5单占比</td><td class="left">圣诞链接中9–12月销量≤5单的比例</td><td class="left">控制长尾和无效库存</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section class="section">
+    <div class="kicker">Data Notes</div>
+    <h2>十三、数据口径与限制</h2>
+    <ul>
+      <li>本文件1337条记录全部包含“圣诞”标签，因此未做二次节日筛选。</li>
+      <li>业务人员主口径使用“新业务人员”；源表中“新业务人员”与“首选业务人员”有 278 条不一致（20.8%），跨年度人员绩效比较前建议固化归属快照。</li>
+      <li>“一级类目中文”缺失 608 条（45.5%），类目分析存在覆盖不足。</li>
+      <li>广告费缺2025年11月字段，所以不计算完整旺季TACOS/广告ROI。</li>
+      <li>当前FBA库存、近7/30天销量等字段属于当前快照，不等同于2025年12月31日季末库存，因此没有用于推导2025季末库存周转。</li>
+      <li>销售额、利润额、退款额未在字段名中明确币种，本报告沿用源表金额口径，不自行换算。</li>
+    </ul>
+  </section>
+
+  <div class="footer">生成时间：2026-08-28 ｜ 数据源：2025年圣诞复盘数据.xlsx ｜ 报告为静态自包含HTML，可直接浏览器打开或打印为PDF。</div>
+</div>
+</body>
+</html>
